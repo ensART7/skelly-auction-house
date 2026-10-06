@@ -22,7 +22,7 @@ a:hover{color:inherit}
 :focus-visible{outline:3px solid #0B1B33;outline-offset:3px}
 </style>
 </helmet>
-<div style="height:100vh;display:flex;flex-direction:column;gap:clamp(10px,1.6vh,18px);padding:clamp(10px,1.6vh,16px) clamp(12px,1.6vw,26px);background:transparent;color:#FFFFFF;font-family:'Baloo 2','Baloo','Fredoka','Nunito','Arial Rounded MT Bold',system-ui,sans-serif;font-weight:700;overflow-x:hidden;overflow-y:{{ outerOverflow }}">
+<div style="height:100vh;display:flex;flex-direction:column;gap:clamp(10px,1.6vh,18px);padding:clamp(10px,1.6vh,16px) clamp(12px,1.6vw,26px);background:transparent;position:relative;isolation:isolate;color:#FFFFFF;font-family:'Baloo 2','Baloo','Fredoka','Nunito','Arial Rounded MT Bold',system-ui,sans-serif;font-weight:700;overflow-x:hidden;overflow-y:{{ outerOverflow }}">
 
   <div aria-hidden="true" style="position:fixed;inset:-24px;z-index:-1;pointer-events:none;background:#CCFF00 url('./assets/background.png') center / cover no-repeat;filter:blur(4px)"></div>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -758,7 +758,7 @@ class Component extends DCLogic {
       speech: this.speech(), bubbleRef: this.bubbleRef, vipGlowRef: this.vipGlowRef, badgeRef: this.badgeRef,
       share: this.share, closeShare: this.closeShare, copyLink: this.copyLink, shareOpen: !!s.shareOpen, copied: !!s.copied,
       shareRef: this.shareRef, toastRef: this.toastRef,
-      tweetUrl: 'https://x.com/intent/tweet?text=' + encodeURIComponent('Bringing NFT auctions back. 🔨💀\nWelcome to the @skelly_hood Auction House. https://auctions.skellynft.com/'),
+      tweetUrl: 'https://x.com/intent/tweet?text=' + encodeURIComponent('Bringing NFT auctions back. 🔨💀\nWelcome to the @skelly_hood Auction House. www.skellynft.com/auctions'),
       outerOverflow: narrow ? 'auto' : 'hidden', rowFlex: narrow ? '0 0 auto' : '1 1 auto', rowDir: narrow ? 'column' : 'row',
       mainFlex: narrow ? '0 0 auto' : '1 1 auto',
       mainH: narrow ? Math.round(Math.min(vh * 0.92, (vw - 24) * 1320 / 760)) + 'px' : 'auto',
