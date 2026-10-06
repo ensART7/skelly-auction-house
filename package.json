@@ -1,0 +1,21 @@
+{
+  "name": "skelly-auction-house",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test:offers": "node scripts/test-offers.mjs",
+    "inspect:offers": "node --env-file=.env.local scripts/inspect-offers.mjs"
+  },
+  "dependencies": {
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "engines": {
+    "node": ">=18.18"
+  },
+  "type": "module"
+}
