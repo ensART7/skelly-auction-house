@@ -79,7 +79,7 @@ a:hover{color:inherit}
             </g>
           </svg>
           <div style="position:absolute;left:11%;width:78%;top:5%;aspect-ratio:1;background:#FFFFFF;border:4px solid #0B1B33;border-radius:6px;box-shadow:4px 4px 0 #0B1B33;padding:6%;transform:rotate(-1.5deg)">
-            <div ref="{{ artRef }}" style="width:100%;height:100%;overflow:hidden;border-radius:3px;border:2.5px solid #0B1B33">
+            <div ref="{{ artRef }}" onMouseEnter="{{ zoomIn }}" onMouseLeave="{{ zoomOut }}" style="width:100%;height:100%;overflow:hidden;border-radius:3px;border:2.5px solid #0B1B33;cursor:zoom-in">
               <sc-if value="{{ showArtImg }}" hint-placeholder-val="{{ false }}">
                 <div role="img" aria-label="{{ nftName }}" style="width:100%;height:100%;background-image:{{ nftBg }};background-size:cover;background-position:center"></div>
               </sc-if>
@@ -152,30 +152,7 @@ a:hover{color:inherit}
         </div>
 
         <div style="display:flex;justify-content:center;width:100%;gap:2px">
-          <sc-for list="{{ r3 }}" as="s" hint-placeholder-count="10">
-            <div style="display:flex;flex-direction:column;align-items:center;position:relative;flex:0 0 auto;width:var(--stdSeat,78px)">
-              <div style="display:flex;align-items:flex-end;justify-content:center;width:100%;min-height:var(--stdSlot,50px)">
-                <sc-if value="{{ s.has }}" hint-placeholder-val="{{ false }}">
-                  <div data-wallet="{{ s.wallet }}" title="{{ s.title }}" style="display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1.05;padding-bottom:3px">
-                    <span style="display:block;width:var(--stdAv,22px);height:var(--stdAv,22px);border:2px solid #0B1B33;border-radius:50%;overflow:hidden;background:#FFFFFF;flex:0 0 auto"><span style="display:block;width:100%;height:100%;background-image:{{ s.bg }};background-size:cover;background-position:center"></span></span>
-                    <span style="font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;font-size:var(--stdNm,11px);max-width:calc(var(--stdSeat,78px) - 6px)">{{ s.name }}</span>
-                    <span style="font-weight:800;color:#CCFF00;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:var(--stdAmt,12px)">{{ s.amt }}</span>
-                    <span style="width:2px;height:4px;background:#0B1B33;margin-top:1px;border-radius:2px"></span>
-                  </div>
-                </sc-if>
-              </div>
-              <svg viewBox="0 0 60 82" aria-hidden="true" style="display:block;overflow:visible;filter:url(#wobble);width:var(--stdW,34px)">
-                <path d="M15 4 Q30 -2 45 4 Q47 22 44 42 L16 42 Q13 22 15 4Z" fill="#0B1B33"></path>
-                <path d="M20 10 Q30 7 40 10" stroke="#CCFF00" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"></path>
-                <path d="M7 41 Q30 37 53 41 L53 50 L7 50 Z" fill="#0B1B33"></path>
-                <path d="M10 50 L9 80 M50 50 L51 80 M21 50 L21 70 M39 50 L39 70" stroke="#0B1B33" stroke-width="5.5" stroke-linecap="round"></path>
-              </svg>
-            </div>
-          </sc-for>
-        </div>
-
-        <div style="display:flex;justify-content:center;width:100%;gap:2px;padding-left:var(--r4pad,40px)">
-          <sc-for list="{{ r4 }}" as="s" hint-placeholder-count="10">
+          <sc-for list="{{ r3 }}" as="s" hint-placeholder-count="6">
             <div style="display:flex;flex-direction:column;align-items:center;position:relative;flex:0 0 auto;width:var(--stdSeat,78px)">
               <div style="display:flex;align-items:flex-end;justify-content:center;width:100%;min-height:var(--stdSlot,50px)">
                 <sc-if value="{{ s.has }}" hint-placeholder-val="{{ false }}">
@@ -214,6 +191,12 @@ a:hover{color:inherit}
     </div>
   </main>
 
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;pointer-events:none;background:rgba(11,27,51,.35);opacity:{{ zoomOpacity }};transition:opacity .25s ease">
+    <div style="width:min(72vh,72vw);aspect-ratio:1;background:#FFFFFF;border:5px solid #0B1B33;border-radius:12px;box-shadow:10px 10px 0 #0B1B33;padding:16px;transform:{{ zoomTransform }};transition:transform .35s cubic-bezier(.3,1.4,.5,1)">
+      <div style="width:100%;height:100%;border:3px solid #0B1B33;border-radius:6px;background-color:#E4EAF2;background-image:{{ nftBg }};background-size:cover;background-position:center"></div>
+    </div>
+  </div>
+
 
 
 </div>
@@ -224,7 +207,7 @@ class Component extends DCLogic {
     '--vipW':'74px','--vipAv':'42px','--vipNm':'18px','--vipAmt':'20px','--vipSlot':'96px','--vipSeat':'170px','--premW':'56px','--premAv':'30px','--premNm':'14px','--premAmt':'15px','--premSlot':'66px','--premSeat':'110px','--stdW':'34px','--stdAv':'22px','--stdNm':'11px','--stdAmt':'12px','--stdSlot':'50px','--stdSeat':'78px' };
   static PORT = { '--signL':'50%','--podL':'110px','--podT':'190px','--podW':'210px','--ewL':'400px','--ewT':'206px','--ewDir':'column','--ewGap':'8px','--easelW':'170px','--lnFs':'30px','--lsFs':'13px','--btnFs':'16px','--btnPad':'8px 18px 4px','--liAlign':'center','--liText':'center','--btnSelf':'center','--floorL':'20px','--floorT':'560px','--floorW':'720px','--floorH':'750px','--r4pad':'0px',
     '--vipW':'112px','--vipAv':'54px','--vipNm':'22px','--vipAmt':'24px','--vipSlot':'124px','--vipSeat':'200px','--premW':'84px','--premAv':'40px','--premNm':'16px','--premAmt':'18px','--premSlot':'86px','--premSeat':'150px','--stdW':'50px','--stdAv':'28px','--stdNm':'11px','--stdAmt':'12px','--stdSlot':'60px','--stdSeat':'68px' };
-  state = { dbg: null, phase: 'connecting', nft: null, offers: [], accounts: {}, endsAt: 0, status: 'live', sold: false, artFailed: false, stale: false, imgTick: 0 };
+  state = { artZoom: false, dbg: null, phase: 'connecting', nft: null, offers: [], accounts: {}, endsAt: 0, status: 'live', sold: false, artFailed: false, stale: false, imgTick: 0 };
   panelRef = React.createRef(); sceneRef = React.createRef(); offerRef = React.createRef();
   gavelRef = React.createRef(); bangRef = React.createRef(); artRef = React.createRef(); zipRef = React.createRef();
   vipChairRef = React.createRef(); raysRef = React.createRef(); soldWordRef = React.createRef(); soldLotRef = React.createRef();
@@ -500,12 +483,12 @@ class Component extends DCLogic {
       const name = this.nameFor(b.address), amt = `${this.fmt(b.offerAmount)} ${b.currency}`.trim();
       return { has: true, wallet: b.address, name, amt, title: `${name} · ${amt}`, bg: this.avatarBg(b.address) };
     };
-    const order = [4, 5, 3, 6, 2, 7, 1, 8, 0, 9];
-    const row = base => { const a = Array(10); order.forEach((v, k) => { a[v] = item(bidders[base + k]); }); return a; };
+    const order = [2, 3, 1, 4, 0, 5];
+    const row = base => { const a = Array(6); order.forEach((v, k) => { a[v] = item(bidders[base + k]); }); return a; };
     let d = ''; for (let i = 0; i < 24; i++) { const a = i / 24 * Math.PI * 2, b = a + Math.PI / 48; d += `M0 0 L${(Math.cos(a) * 100).toFixed(1)} ${(Math.sin(a) * 100).toFixed(1)} L${(Math.cos(b) * 100).toFixed(1)} ${(Math.sin(b) * 100).toFixed(1)}Z `; }
     const nft = s.nft;
     const statusText = s.phase === 'connecting' ? 'CONNECTING TO OPENSEA...' : s.phase === 'error' || s.stale ? 'AUCTION DATA UNAVAILABLE' : (!offers.length ? 'NO ACTIVE OFFERS' : '');
-    const extra = Math.max(0, bidders.length - 24);
+    const extra = Math.max(0, bidders.length - 10);
     const winName = top ? this.nameFor(top.address) : 'NO BIDS';
     return {
       panelRef: this.panelRef, sceneRef: this.sceneRef, offerRef: this.offerRef, gavelRef: this.gavelRef,
@@ -517,7 +500,9 @@ class Component extends DCLogic {
       nftBg: nft && nft.imageUrl ? `url("${nft.imageUrl}")` : 'none',
       openseaUrl: nft && nft.openseaUrl ? nft.openseaUrl : undefined,
       showArtImg: !!(nft && nft.imageUrl) && !s.artFailed,
-      vip: item(bidders[0]), prem: [item(bidders[2]), item(bidders[1]), item(bidders[3])], r3: row(4), r4: row(14),
+      zoomIn: () => { if (nft && nft.imageUrl && !s.artFailed) this.setState({ artZoom: true }); }, zoomOut: () => this.setState({ artZoom: false }),
+      zoomOpacity: s.artZoom ? 1 : 0, zoomTransform: s.artZoom ? 'scale(1) rotate(-1.5deg)' : 'scale(.4) rotate(-6deg)',
+      vip: item(bidders[0]), prem: [item(bidders[2]), item(bidders[1]), item(bidders[3])], r3: row(4),
       hasStatus: !!statusText, statusText,
       hasOverflow: extra > 0, overflowText: `+ ${extra} OTHER BIDDER${extra === 1 ? '' : 'S'}`,
       soldDisplay: s.sold ? 'flex' : 'none', rayPath: d,

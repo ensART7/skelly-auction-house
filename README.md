@@ -42,7 +42,7 @@ Quick checks: `/api/auction/nft` should return SKELLY #442, and `/api/auction/of
 
 ## Behaviour
 - **LAST OFFER:** the newest active offer (by `order_created_at`), plus who made it.
-- **TOP BIDDER:** the wallet with the highest active offer. The next 3 bidders take the premium row and the rest take the standard rows (24 seats). Extra bidders show as "+ N OTHER BIDDERS".
+- **TOP BIDDER:** the wallet with the highest active offer. The next 3 bidders take the premium row and the next 6 take the standard row (10 seats). Extra bidders show as "+ N OTHER BIDDERS".
 - **Offer filtering:** only offers that target this exact chain, contract and token are shown. Collection and trait offers are dropped.
 - **Names:** username, then display name, then shortened wallet. Avatars: OpenSea profile image, falling back to a generated skull.
 - **Refresh:** offers are polled every 15 s (`OPEN_SEA_POLL_INTERVAL`), paused while the tab is hidden.
