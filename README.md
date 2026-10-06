@@ -46,7 +46,7 @@ Quick checks: `/api/auction/nft` should return SKELLY #442, and `/api/auction/of
 - **Top bidder seat:** crown, lime glow, ring and a ★ TOP BIDDER badge. When the leader changes, their tag travels into the seat and the crown drops on.
 - **Auctioneer speech bubble:** reacts to real events (NEW TOP BIDDER! / DO I HEAR MORE? / WE HAVE A NEW BID!), shows COME ON, SKELLIES! when 3 or more offers arrived in the last 15 minutes, and GOING ONCE / TWICE when `AUCTION_NFT.endsAt` is under 2 minutes / 45 seconds away.
 - **USD:** `GET /api/auction/price` (Coinbase spot, CoinGecko fallback, no key, cached 60 s). WETH/ETH are converted at the ETH price, and stablecoins (USDG/USDC/USDT/DAI) at 1:1.
-- **Share:** native share sheet when available, otherwise a "Share on X" / "Copy Link" menu (with a LINK COPIED! toast). The text is built from the live TOP OFFER.
+- **Share:** SHARE AUCTION ↗ opens an X post: "Bringing NFT auctions back. 🔨💀 / Welcome to the @skelly_hood Auction House." plus the auction link.
 - **TOP OFFER:** the highest active offer, plus who made it (same bidder as the TOP BIDDER chair).
 - **TOP BIDDER:** the wallet with the highest active offer. The next 3 bidders take the premium row and the next 6 take the standard row (10 seats). Extra bidders show as "+ N OTHER BIDDERS".
 - **Offer filtering:** only offers that target this exact chain, contract and token are shown. Collection and trait offers are dropped.

@@ -99,7 +99,7 @@ a:hover{color:inherit}
           <div style="font-weight:800;font-size:var(--lsFs,18px);letter-spacing:.14em;color:#0B1B33">CURRENT AUCTION</div>
           <a href="{{ openseaUrl }}" target="_blank" rel="noopener" style="margin-top:10px;display:inline-block;align-self:var(--btnSelf,flex-start);background:#2B91EA;color:#FFFFFF;border:3px solid #0B1B33;border-radius:14px;box-shadow:0 5px 0 #0B1B33;padding:var(--btnPad,16px 34px 9px);font-weight:800;font-size:var(--btnFs,26px);white-space:nowrap;transition:transform .15s,box-shadow .15s" style-hover="transform:translateY(2px);box-shadow:0 3px 0 #0B1B33">View on OpenSea and Bid ↗</a>
           <div ref="{{ shareRef }}" style="position:relative;margin-top:14px;align-self:var(--btnSelf,flex-start);display:flex;align-items:center;gap:10px">
-            <button type="button" onClick="{{ share }}" style="font-family:inherit;font-weight:800;font-size:calc(var(--btnFs,26px) * .7);line-height:1;background:#FFFFFF;color:#0B1B33;border:3px solid #0B1B33;border-radius:12px;box-shadow:0 4px 0 #0B1B33;padding:10px 20px 6px;cursor:pointer;white-space:nowrap;transition:transform .15s,box-shadow .15s" style-hover="transform:translateY(2px);box-shadow:0 2px 0 #0B1B33">SHARE AUCTION ↗</button>
+            <a href="{{ tweetUrl }}" target="_blank" rel="noopener" onClick="{{ share }}" style="display:inline-block;font-family:inherit;font-weight:800;font-size:calc(var(--btnFs,26px) * .7);line-height:1;background:#FFFFFF;color:#0B1B33;border:3px solid #0B1B33;border-radius:12px;box-shadow:0 4px 0 #0B1B33;padding:10px 20px 6px;cursor:pointer;white-space:nowrap;transition:transform .15s,box-shadow .15s" style-hover="transform:translateY(2px);box-shadow:0 2px 0 #0B1B33">SHARE AUCTION ↗</a>
             <sc-if value="{{ copied }}" hint-placeholder-val="{{ false }}"><span ref="{{ toastRef }}" role="status" style="display:block;background:#CCFF00;color:#0B1B33;border:2.5px solid #0B1B33;border-radius:999px;box-shadow:2px 2px 0 #0B1B33;font-weight:800;font-size:calc(var(--btnFs,26px) * .55);letter-spacing:.08em;padding:5px 12px 2px;white-space:nowrap;transform:rotate(-3deg)">LINK COPIED!</span></sc-if>
             <sc-if value="{{ shareOpen }}" hint-placeholder-val="{{ false }}">
               <div role="menu" style="position:absolute;left:0;top:calc(100% + 12px);z-index:10;display:flex;flex-direction:column;gap:8px;background:#FFFFFF;border:3px solid #0B1B33;border-radius:16px;box-shadow:5px 5px 0 #0B1B33;padding:10px;min-width:220px">
@@ -130,10 +130,10 @@ a:hover{color:inherit}
                 </div>
               </sc-if>
             </div>
-            <div ref="{{ vipGlowRef }}" aria-hidden="true" style="position:absolute;left:50%;bottom:-8px;width:calc(var(--vipW,92px) * 2.7);height:calc(var(--vipW,92px) * 1.6);transform:translateX(-50%);background:radial-gradient(ellipse at 50% 62%,rgba(204,255,0,.6) 0%,rgba(204,255,0,.2) 45%,rgba(204,255,0,0) 70%);pointer-events:none"></div>
+            <div ref="{{ vipGlowRef }}" aria-hidden="true" style="position:absolute;left:50%;bottom:-6px;width:calc(var(--vipW,92px) * 1.7);height:calc(var(--vipW,92px) * .34);transform:translateX(-50%);background:#CCFF00;border:3px solid #0B1B33;border-radius:50%;box-shadow:3px 3px 0 #0B1B33;pointer-events:none"></div>
             <svg aria-hidden="true" viewBox="0 0 20 20" style="position:absolute;left:calc(50% - var(--vipW,92px) * .95);bottom:calc(var(--vipW,92px) * .9);width:16px;pointer-events:none"><path d="M10 1 L12 8 L19 10 L12 12 L10 19 L8 12 L1 10 L8 8Z" fill="#CCFF00" stroke="#0B1B33" stroke-width="1.6" stroke-linejoin="round"></path></svg>
             <svg aria-hidden="true" viewBox="0 0 20 20" style="position:absolute;left:calc(50% + var(--vipW,92px) * .7);bottom:calc(var(--vipW,92px) * 1.15);width:12px;pointer-events:none"><path d="M10 1 L12 8 L19 10 L12 12 L10 19 L8 12 L1 10 L8 8Z" fill="#FFFFFF" stroke="#0B1B33" stroke-width="1.8" stroke-linejoin="round"></path></svg>
-            <svg ref="{{ vipChairRef }}" data-chair="" viewBox="0 0 120 140" aria-hidden="true" style="display:block;position:relative;overflow:visible;filter:url(#wobble) drop-shadow(0 0 6px rgba(204,255,0,.9));width:var(--vipW,74px)">
+            <svg ref="{{ vipChairRef }}" data-chair="" viewBox="0 0 120 140" aria-hidden="true" style="display:block;position:relative;overflow:visible;filter:url(#wobble);width:var(--vipW,74px)">
               <path d="M22 26 L32 4 L44 20 L60 0 L76 20 L88 4 L98 26 Q104 60 98 86 L22 86 Q16 60 22 26Z" fill="#0B1B33" stroke="#0B1B33" stroke-width="4" stroke-linejoin="round"></path>
               <path d="M32 32 Q60 22 88 32 Q92 56 88 78 L32 78 Q28 56 32 32Z" fill="url(#checker)" stroke="#fff" stroke-width="3"></path>
               <circle cx="32" cy="4" r="5" fill="#CCFF00" stroke="#0B1B33" stroke-width="2.5"></circle><circle cx="60" cy="0" r="5.5" fill="#CCFF00" stroke="#0B1B33" stroke-width="2.5"></circle><circle cx="88" cy="4" r="5" fill="#CCFF00" stroke="#0B1B33" stroke-width="2.5"></circle>
@@ -195,6 +195,27 @@ a:hover{color:inherit}
           </sc-for>
         </div>
       </section>
+
+      <sc-if value="{{ showScenePanel }}" hint-placeholder-val="{{ false }}">
+      <section aria-label="Bid history" style="position:absolute;left:calc(50% + 522px);width:clamp(240px,calc(50% - 536px),400px);top:var(--floorT,432px);height:var(--floorH,560px);display:flex;flex-direction:column;background:#1668BE;border:4px solid #0B1B33;border-radius:26px;box-shadow:6px 6px 0 #0B1B33;padding:30px 12px 10px;z-index:2">
+        <div style="position:absolute;top:-19px;left:24px;transform:rotate(-2deg);background:#FFFFFF;color:#0B1B33;border:3px solid #0B1B33;border-radius:999px;box-shadow:3px 3px 0 #0B1B33;padding:5px 18px 1px;font-weight:800;font-size:17px;letter-spacing:.12em;white-space:nowrap">BID HISTORY</div>
+        <sc-if value="{{ histEmpty }}" hint-placeholder-val="{{ true }}">
+          <div style="margin:auto 0;text-align:center;color:#FFFFFF;font-weight:800;font-size:17px;letter-spacing:.1em">{{ histEmptyText }}</div>
+        </sc-if>
+        <div ref="{{ histRef }}" style="display:flex;flex-direction:column;min-height:0;overflow:hidden">
+          <sc-for list="{{ history }}" as="h" hint-placeholder-count="0">
+            <div data-hist-id="{{ h.id }}" title="{{ h.title }}" style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:12px;padding:7px 8px 5px;border-radius:12px;border-bottom:2px dashed rgba(255,255,255,.3)">
+              <span style="display:block;width:40px;height:40px;border:3px solid #0B1B33;border-radius:50%;overflow:hidden;background:#FFFFFF"><span style="display:block;width:100%;height:100%;background-image:{{ h.bg }};background-size:cover;background-position:center"></span></span>
+              <span style="display:flex;flex-direction:column;min-width:0;line-height:1.1">
+                <span style="font-weight:800;font-size:18px;color:#FFFFFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ h.name }}</span>
+                <span style="display:flex;gap:8px;align-items:baseline;white-space:nowrap"><span style="font-weight:800;font-size:18px;color:#CCFF00;font-variant-numeric:tabular-nums">{{ h.amt }}</span><span style="font-weight:600;font-size:14px;color:#E3EEFF">{{ h.usd }}</span></span>
+              </span>
+              <span style="align-self:start;padding-top:3px;font-weight:700;font-size:14px;color:#E3EEFF;white-space:nowrap">{{ h.ago }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+      </sc-if>
     </div>
 
     <div style="position:absolute;inset:0;z-index:20;display:{{ soldDisplay }};flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(22,104,190,.95);border:3px solid #0B1B33;border-radius:30px;overflow:hidden;padding:20px">
@@ -211,6 +232,7 @@ a:hover{color:inherit}
       </div>
     </div>
   </main>
+  <sc-if value="{{ showAside }}" hint-placeholder-val="{{ false }}">
   <aside aria-label="Bid history" style="flex:0 0 auto;width:{{ asideW }};position:relative;display:flex;flex-direction:column;min-height:0;background:#1668BE;border:4px solid #0B1B33;border-radius:26px;box-shadow:6px 6px 0 #0B1B33;padding:30px 12px 12px;margin:14px 6px 8px 0">
     <div style="position:absolute;top:-17px;left:22px;transform:rotate(-2deg);background:#FFFFFF;color:#0B1B33;border:3px solid #0B1B33;border-radius:999px;box-shadow:3px 3px 0 #0B1B33;padding:5px 16px 1px;font-weight:800;font-size:15px;letter-spacing:.12em;white-space:nowrap">BID HISTORY</div>
     <sc-if value="{{ histEmpty }}" hint-placeholder-val="{{ true }}">
@@ -230,6 +252,7 @@ a:hover{color:inherit}
       </sc-for>
     </div>
   </aside>
+  </sc-if>
   </div>
 
   <div aria-hidden="true" style="position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;pointer-events:none;background:rgba(11,27,51,.35);opacity:{{ zoomOpacity }};transition:opacity .25s ease">
@@ -244,7 +267,7 @@ a:hover{color:inherit}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;apiBase&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;/api/auction&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;OpenSea&quot;},&quot;pollMs&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:15000,&quot;min&quot;:5000,&quot;max&quot;:60000,&quot;step&quot;:1000,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;OpenSea&quot;},&quot;debug&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Developer&quot;}}">
 class Component extends DCLogic {
-  static LAND = { '--signL':'calc(50% - 350px)','--podL':'calc(50% - 431px)','--podT':'186px','--podW':'150px','--ewL':'calc(50% - 151px)','--ewT':'71px','--ewDir':'row','--ewGap':'30px','--easelW':'262px','--lnFs':'52px','--lsFs':'18px','--btnFs':'26px','--btnPad':'16px 34px 9px','--liAlign':'flex-start','--liText':'left','--btnSelf':'flex-start','--floorL':'calc(50% - 630px)','--floorT':'432px','--floorW':'1260px','--floorH':'560px','--r4pad':'40px','--bubL':'calc(50% - 700px)','--bubT':'214px','--bubW':'250px','--bubFs':'24px',
+  static LAND = { '--signL':'calc(50% - 350px)','--podL':'calc(50% - 431px)','--podT':'186px','--podW':'150px','--ewL':'calc(50% - 170px)','--ewT':'71px','--ewDir':'row','--ewGap':'30px','--easelW':'262px','--lnFs':'52px','--lsFs':'18px','--btnFs':'23px','--btnPad':'14px 28px 8px','--liAlign':'flex-start','--liText':'left','--btnSelf':'flex-start','--floorL':'calc(50% - 760px)','--floorT':'432px','--floorW':'1260px','--floorH':'560px','--r4pad':'40px','--bubL':'calc(50% - 700px)','--bubT':'214px','--bubW':'250px','--bubFs':'24px',
     '--vipW':'92px','--vipAv':'42px','--vipNm':'18px','--vipAmt':'20px','--vipSlot':'124px','--vipSeat':'170px','--premW':'56px','--premAv':'30px','--premNm':'14px','--premAmt':'15px','--premSlot':'80px','--premSeat':'110px','--stdW':'34px','--stdAv':'22px','--stdNm':'11px','--stdAmt':'12px','--stdSlot':'64px','--stdSeat':'78px' };
   static PORT = { '--signL':'50%','--podL':'110px','--podT':'190px','--podW':'210px','--ewL':'400px','--ewT':'206px','--ewDir':'column','--ewGap':'8px','--easelW':'170px','--lnFs':'30px','--lsFs':'13px','--btnFs':'16px','--btnPad':'8px 18px 4px','--liAlign':'center','--liText':'center','--btnSelf':'center','--floorL':'20px','--floorT':'560px','--floorW':'720px','--floorH':'750px','--r4pad':'0px','--bubL':'14px','--bubT':'232px','--bubW':'150px','--bubFs':'17px',
     '--vipW':'128px','--vipAv':'54px','--vipNm':'22px','--vipAmt':'24px','--vipSlot':'150px','--vipSeat':'200px','--premW':'84px','--premAv':'40px','--premNm':'16px','--premAmt':'18px','--premSlot':'100px','--premSeat':'150px','--stdW':'50px','--stdAv':'28px','--stdNm':'11px','--stdAmt':'12px','--stdSlot':'74px','--stdSeat':'68px' };
@@ -331,6 +354,7 @@ class Component extends DCLogic {
     const pw = panel.clientWidth, ph = panel.clientHeight; if (!pw || !ph) return;
     const port = pw / ph < 1.05;
     const H = port ? 1320 : 1000, W = port ? 760 : Math.round(Math.min(2100, Math.max(1600, H * pw / ph)));
+    if (this.state.port !== port) this.setState({ port });
     const vars = port ? Component.PORT : Component.LAND;
     for (const k in vars) scene.style.setProperty(k, vars[k]);
     this.SCALE = Math.min(pw / W, ph / H) * 0.97;
@@ -427,14 +451,7 @@ class Component extends DCLogic {
     const offer = b ? `${this.fmt(b.offerAmount)} ${b.currency}`.trim() : 'no offers yet';
     return { title, text: `🔨 ${title} is up for auction!\n\nCurrent offer: ${offer}\n\nBid now 👇\n${this.auctionUrl()}\n\n#SKELLY #NFT #Web3` };
   }
-  share = async () => {
-    const d = this.shareText();
-    if (navigator.share) {
-      try { await navigator.share({ title: d.title, text: d.text }); return; }
-      catch (e) { if (e && e.name === 'AbortError') return; }
-    }
-    this.setState(st => ({ shareOpen: !st.shareOpen }));
-  };
+  share = () => { this.setState({ shareOpen: false }); };
   closeShare = () => this.setState({ shareOpen: false });
   copyLink = async () => {
     const url = this.auctionUrl();
@@ -531,7 +548,7 @@ class Component extends DCLogic {
       const vipEl = scene.querySelector(`[data-wallet="${top.address}"]`);
       this.anim(vipEl && vipEl.querySelector('[data-crown]'), [{ opacity: 0, transform: 'translateY(-46px) rotate(-35deg) scale(.3)' }, { opacity: 1, transform: 'translateY(4px) rotate(8deg) scale(1.15)', offset: .7 }, { opacity: 1, transform: 'none' }], { duration: 700, delay: 450, easing: 'ease-out', fill: 'backwards' });
       this.anim(this.badgeRef.current, [{ transform: 'rotate(-4deg) scale(1)' }, { transform: 'rotate(-14deg) scale(1.35)', offset: .3 }, { transform: 'rotate(4deg) scale(.95)', offset: .6 }, { transform: 'rotate(-4deg) scale(1)' }], { duration: 800, delay: 500, easing: 'ease-out' });
-      this.anim(this.vipGlowRef.current, [{ filter: 'brightness(1)' }, { filter: 'brightness(1.6)', offset: .3 }, { filter: 'brightness(1)' }], { duration: 1200, delay: 400 });
+      this.anim(this.vipGlowRef.current, [{ transform: 'translateX(-50%) scale(1)' }, { transform: 'translateX(-50%) scale(1.25)', offset: .3 }, { transform: 'translateX(-50%) scale(1)' }], { duration: 900, delay: 400, easing: 'ease-out', composite: 'add' });
     }
     if (type === 'bid') this.anim(this.gavelRef.current, [{ transform: 'none' }, { transform: 'rotate(-1.5deg) translateY(-3px)', offset: .4 }, { transform: 'none' }], { duration: 500, easing: 'ease-out' });
     if (type) this.setState({ event: { type, at: Date.now() }, now: Date.now() });
@@ -679,7 +696,7 @@ class Component extends DCLogic {
     window.addEventListener('resize', this.onResize);
     this.onDocDown = e => { if (this.state.shareOpen && this.shareRef.current && !this.shareRef.current.contains(e.target)) this.setState({ shareOpen: false }); };
     document.addEventListener('pointerdown', this.onDocDown);
-    this.anim(this.vipGlowRef.current, [{ opacity: .6, transform: 'translateX(-50%) scale(.92)' }, { opacity: 1, transform: 'translateX(-50%) scale(1.06)' }], { duration: 1800, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' });
+    this.anim(this.vipGlowRef.current, [{ transform: 'translateX(-50%) scale(.94)' }, { transform: 'translateX(-50%) scale(1.04)' }], { duration: 1800, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' });
     this.anim(this.raysRef.current, [{ transform: 'translate(-50%,-50%) rotate(0deg)' }, { transform: 'translate(-50%,-50%) rotate(360deg)' }], { duration: 40000, iterations: Infinity });
     this.clock = setInterval(() => {
       const s = this.state;
@@ -706,8 +723,8 @@ class Component extends DCLogic {
     const statusText = s.phase === 'connecting' ? 'CONNECTING TO OPENSEA...' : s.phase === 'error' || s.stale ? 'AUCTION DATA UNAVAILABLE' : (!offers.length ? 'NO ACTIVE OFFERS' : '');
     const extra = Math.max(0, bidders.length - 10);
     const winName = top ? this.nameFor(top.address) : 'NO BIDS';
-    const vw = s.vw || window.innerWidth, vh = s.vh || window.innerHeight, narrow = vw < 860;
-    const hist = offers.slice().sort((a, b) => b.createdAt - a.createdAt).slice(0, narrow ? 8 : 10).map(o => {
+    const vw = s.vw || window.innerWidth, vh = s.vh || window.innerHeight, narrow = vw < 860, showAside = narrow || !!s.port;
+    const hist = offers.slice().sort((a, b) => b.createdAt - a.createdAt).slice(0, 8).map(o => {
       const name = this.nameFor(o.maker), amt = `${this.fmt(o.amount)} ${o.currency}`.trim();
       return { id: o.id, name, amt, usd: this.usdText(o.amount, o.currency), ago: this.ago(o.createdAt, s.now), bg: this.avatarBg(o.maker), title: `${name} · ${amt} · ${new Date(o.createdAt).toLocaleString()}` };
     });
@@ -725,11 +742,11 @@ class Component extends DCLogic {
       zoomIn: () => { if (nft && nft.imageUrl && !s.artFailed) this.setState({ artZoom: true }); }, zoomOut: () => this.setState({ artZoom: false }),
       zoomOpacity: s.artZoom ? 1 : 0, zoomTransform: s.artZoom ? 'scale(1) rotate(-1.5deg)' : 'scale(.4) rotate(-6deg)',
       vip: item(bidders[0]), prem: [item(bidders[2]), item(bidders[1]), item(bidders[3])], r3: row(4),
-      history: hist, histEmpty: !hist.length, histEmptyText: statusText || 'NO BIDS YET', histRef: this.histRef,
+      showAside, showScenePanel: !showAside, history: hist, histEmpty: !hist.length, histEmptyText: statusText || 'NO BIDS YET', histRef: this.histRef,
       speech: this.speech(), bubbleRef: this.bubbleRef, vipGlowRef: this.vipGlowRef, badgeRef: this.badgeRef,
       share: this.share, closeShare: this.closeShare, copyLink: this.copyLink, shareOpen: !!s.shareOpen, copied: !!s.copied,
       shareRef: this.shareRef, toastRef: this.toastRef,
-      tweetUrl: 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(this.shareText().text),
+      tweetUrl: 'https://x.com/intent/tweet?text=' + encodeURIComponent('Bringing NFT auctions back. 🔨💀\nWelcome to the @skelly_hood Auction House.') + '&url=' + encodeURIComponent(this.auctionUrl()),
       outerOverflow: narrow ? 'auto' : 'hidden', rowFlex: narrow ? '0 0 auto' : '1 1 auto', rowDir: narrow ? 'column' : 'row',
       mainFlex: narrow ? '0 0 auto' : '1 1 auto',
       mainH: narrow ? Math.round(Math.min(vh * 0.92, (vw - 24) * 1320 / 760)) + 'px' : 'auto',
