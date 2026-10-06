@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<!-- Developer debug panel: only active with ?debug=1. Delete this line + debug-panel.js to remove. -->
+<script src="./debug-panel.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -212,20 +214,6 @@ a:hover{color:inherit}
     </div>
   </main>
 
-  <!-- DEBUG PANEL (development only) — delete this whole <sc-if> block + the "DEBUG PANEL values" in renderVals + the "debug" prop to remove -->
-  <sc-if value="{{ showDebug }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;left:12px;bottom:12px;z-index:60;max-width:min(560px,calc(100vw - 24px));background:rgba(11,27,51,.92);color:#E8F0FF;border-radius:10px;padding:10px 12px;font:500 11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:12px;pointer-events:auto">
-      <span style="color:#CCFF00">NFT</span><span style="overflow-wrap:anywhere">{{ dbgNft }}</span>
-      <span style="color:#CCFF00">Status</span><span>{{ dbgPhase }}</span>
-      <span style="color:#CCFF00">Offers received</span><span>{{ dbgReceived }}</span>
-      <span style="color:#CCFF00">Active offers</span><span>{{ dbgActive }}</span>
-      <span style="color:#CCFF00">Statuses</span><span style="overflow-wrap:anywhere">{{ dbgStatuses }}</span>
-      <span style="color:#CCFF00">Latest offer</span><span>{{ dbgLatest }}</span>
-      <span style="color:#CCFF00">Latest offer time</span><span>{{ dbgLatestTime }}</span>
-      <span style="color:#CCFF00">Highest offer</span><span>{{ dbgHighest }}</span>
-      <span style="color:#CCFF00">Highest bidder</span><span style="overflow-wrap:anywhere">{{ dbgHighestBy }}</span>
-    </div>
-  </sc-if>
 
 
 </div>
@@ -532,14 +520,6 @@ class Component extends DCLogic {
       vip: item(bidders[0]), prem: [item(bidders[2]), item(bidders[1]), item(bidders[3])], r3: row(4), r4: row(14),
       hasStatus: !!statusText, statusText,
       hasOverflow: extra > 0, overflowText: `+ ${extra} OTHER BIDDER${extra === 1 ? '' : 'S'}`,
-      /* DEBUG PANEL values — delete with the panel */
-      showDebug: this.props.debug ?? /[?&]debug=1\b/.test(location.search),
-      dbgNft: nft ? `${nft.collectionSlug} / ${nft.tokenId} · ${nft.chain} · ${nft.contractAddress}` : '—',
-      dbgReceived: s.dbg ? String(s.dbg.received) : '—', dbgActive: s.dbg ? String(s.dbg.active) : '—',
-      dbgStatuses: s.dbg && s.dbg.statusCounts ? Object.entries(s.dbg.statusCounts).map(([k, v]) => `${k} ${v}`).join(' · ') + (s.dbg.stale ? ' · STALE' : '') : '—',
-      dbgLatest: last ? `${last.amount} ${last.currency}` : '—', dbgLatestTime: last && last.createdAt ? new Date(last.createdAt).toISOString() : '—',
-      dbgHighest: top ? `${top.offerAmount} ${top.currency}` : '—', dbgHighestBy: top ? top.address : '—',
-      dbgPhase: s.phase + (s.stale ? ' (stale)' : '') + (s.dbg ? ' · ' + new Date(s.dbg.at).toLocaleTimeString() : ''),
       soldDisplay: s.sold ? 'flex' : 'none', rayPath: d,
       soldLot: this.nftTitle(nft), soldPrice: top ? this.fmt(top.offerAmount) : '—',
       win: { has: !!top, name: winName, bg: top ? this.avatarBg(top.address) : 'none' }

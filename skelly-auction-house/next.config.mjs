@@ -10,6 +10,9 @@ const nextConfig = {
   async headers() {
     return [
       { source: '/api/auction/:path*', headers: [{ key: 'Cache-Control', value: 'no-store' }] },
+      // Always revalidate the page + scripts so a new deploy is picked up immediately
+      { source: '/', headers: [{ key: 'Cache-Control', value: 'no-cache' }] },
+      { source: '/:file(auction.html|debug-panel.js|support.js)', headers: [{ key: 'Cache-Control', value: 'no-cache' }] },
       {
         source: '/:path*',
         headers: [

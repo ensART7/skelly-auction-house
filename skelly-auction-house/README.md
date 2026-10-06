@@ -47,7 +47,7 @@ Quick checks: `/api/auction/nft` should return SKELLY #442, and `/api/auction/of
 - **Names:** username, then display name, then shortened wallet. Avatars: OpenSea profile image, falling back to a generated skull.
 - **Refresh:** offers are polled every 15 s (`OPEN_SEA_POLL_INTERVAL`), paused while the tab is hidden.
 - **No mock data:** if OpenSea can't be reached, the page shows "AUCTION DATA UNAVAILABLE"; with no offers it shows "NO ACTIVE OFFERS".
-- **Debug panel:** hidden by default. Open `/?debug=1` to see it. To remove it permanently, delete the `DEBUG PANEL` block in `public/auction.html`.
+- **Debug panel:** `public/debug-panel.js`, active only with `/?debug=1` (or `#debug=1`). It reads the query with `URLSearchParams` (the page is static HTML, not a React component, so `useSearchParams()` doesn't apply) and calls only `/api/auction/*`. To remove it, delete the file and its `<script>` tag in `auction.html`.
 
 ## Note
 `public/support.js` renders the page and loads React from unpkg.com at runtime.
