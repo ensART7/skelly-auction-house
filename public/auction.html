@@ -22,7 +22,7 @@ a:hover{color:inherit}
 :focus-visible{outline:3px solid #0B1B33;outline-offset:3px}
 </style>
 </helmet>
-<div style="height:100vh;display:flex;flex-direction:column;gap:clamp(10px,1.6vh,18px);padding:clamp(10px,1.6vh,16px) clamp(12px,1.6vw,26px);background:#CCFF00;color:#FFFFFF;font-family:'Baloo 2','Baloo','Fredoka','Nunito','Arial Rounded MT Bold',system-ui,sans-serif;font-weight:700;overflow:hidden">
+<div style="height:100vh;display:flex;flex-direction:column;gap:clamp(10px,1.6vh,18px);padding:clamp(10px,1.6vh,16px) clamp(12px,1.6vw,26px);background:#CCFF00;color:#FFFFFF;font-family:'Baloo 2','Baloo','Fredoka','Nunito','Arial Rounded MT Bold',system-ui,sans-serif;font-weight:700;overflow-x:hidden;overflow-y:{{ outerOverflow }}">
 
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <defs>
@@ -43,7 +43,8 @@ a:hover{color:inherit}
     <img src="./logo.webp" alt="Skelly Auctions" style="display:block;width:260px;height:58px;object-fit:contain">
   </header>
 
-  <main ref="{{ panelRef }}" style="flex:1 1 auto;min-height:0;position:relative;overflow:hidden">
+  <div style="flex:{{ rowFlex }};min-height:0;display:flex;flex-direction:{{ rowDir }};gap:clamp(10px,1.4vw,18px)">
+  <main ref="{{ panelRef }}" style="flex:{{ mainFlex }};min-width:0;min-height:0;height:{{ mainH }};position:relative;overflow:hidden">
     <div ref="{{ sceneRef }}" style="position:absolute;left:50%;top:50%;width:1600px;height:1000px;transform-origin:50% 50%;transform:translate(-50%,-50%) scale(.5)">
       <svg style="position:absolute;left:4%;top:60px;width:26px;color:#0B1B33;opacity:.9;pointer-events:none" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1 L12 8 L19 10 L12 12 L10 19 L8 12 L1 10 L8 8Z" fill="currentColor"></path></svg>
       <svg style="position:absolute;right:5%;top:120px;width:18px;opacity:.9;pointer-events:none" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1 L12 8 L19 10 L12 12 L10 19 L8 12 L1 10 L8 8Z" fill="#0B1B33"></path></svg>
@@ -54,7 +55,7 @@ a:hover{color:inherit}
         <div style="background:#FFFFFF;color:#0B1B33;border:4px solid #0B1B33;border-radius:18px;box-shadow:6px 6px 0 #0B1B33;font-weight:800;font-size:40px;line-height:1;padding:10px 26px 4px;letter-spacing:.01em;transform:rotate(-1.5deg);white-space:nowrap">TOP OFFER</div>
         <div style="display:flex;align-items:baseline;gap:10px;margin-top:4px;line-height:1;white-space:nowrap">
           <span ref="{{ offerRef }}" style="display:inline-block;font-weight:800;font-size:104px;letter-spacing:-.01em;color:#FFFFFF;text-shadow:5px 5px 0 #0B1B33;-webkit-text-stroke:3px #0B1B33;paint-order:stroke fill;font-variant-numeric:tabular-nums">{{ offerAmount }}</span>
-          <span style="display:flex;flex-direction:column;align-items:flex-start;gap:6px"><span style="font-weight:800;font-size:42px;-webkit-text-fill-color:#FFFFFF;-webkit-text-stroke:2px #0B1B33;paint-order:stroke fill;text-shadow:3px 3px 0 #0B1B33">{{ currency }}</span><sc-if value="{{ hasLastBy }}" hint-placeholder-val="{{ false }}"><span title="{{ lastByTitle }}" style="display:block;background:#FFFFFF;color:#0B1B33;border:2.5px solid #0B1B33;border-radius:999px;box-shadow:2px 2px 0 #0B1B33;font-weight:800;font-size:15px;letter-spacing:.06em;padding:3px 10px 0;white-space:nowrap;transform:rotate(-3deg);max-width:220px;overflow:hidden;text-overflow:ellipsis">BY {{ lastBy }}</span></sc-if></span>
+          <span style="display:flex;flex-direction:column;align-items:flex-start;gap:4px"><span style="font-weight:800;font-size:42px;-webkit-text-fill-color:#FFFFFF;-webkit-text-stroke:2px #0B1B33;paint-order:stroke fill;text-shadow:3px 3px 0 #0B1B33">{{ currency }}</span><sc-if value="{{ hasTopUsd }}" hint-placeholder-val="{{ false }}"><span style="font-weight:800;font-size:20px;line-height:1;color:#0B1B33;white-space:nowrap">{{ topUsd }} USD</span></sc-if><sc-if value="{{ hasLastBy }}" hint-placeholder-val="{{ false }}"><span title="{{ lastByTitle }}" style="display:block;background:#FFFFFF;color:#0B1B33;border:2.5px solid #0B1B33;border-radius:999px;box-shadow:2px 2px 0 #0B1B33;font-weight:800;font-size:15px;letter-spacing:.06em;padding:3px 10px 0;white-space:nowrap;transform:rotate(-3deg);max-width:220px;overflow:hidden;text-overflow:ellipsis">BY {{ lastBy }}</span></sc-if></span>
         </div>
       </section>
 
@@ -64,6 +65,13 @@ a:hover{color:inherit}
           <path d="M100 6 L116 40 L156 18 L146 56 L194 62 L152 82 L178 120 L130 102 L112 136 L96 104 L58 130 L66 92 L8 88 L52 66 L22 30 L72 42 Z" fill="#CCFF00" stroke="#0B1B33" stroke-width="5" stroke-linejoin="round"></path>
           <text x="100" y="86" text-anchor="middle" fill="#0B1B33" style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:36px">BANG!</text>
         </svg>
+      </div>
+
+      <div ref="{{ bubbleRef }}" role="status" aria-live="polite" style="position:absolute;left:var(--bubL,calc(50% - 700px));top:var(--bubT,214px);width:var(--bubW,250px);transform-origin:100% 70%;z-index:3">
+        <div style="position:relative;background:#FFFFFF;color:#000000;border:4px solid #0B1B33;border-radius:26px 30px 24px 28px;box-shadow:5px 5px 0 #0B1B33;padding:14px 16px 9px;font-weight:800;font-size:var(--bubFs,24px);line-height:1.05;text-align:center;letter-spacing:.01em;transform:rotate(-2deg);text-wrap:balance">
+          {{ speech }}
+          <svg viewBox="0 0 40 30" aria-hidden="true" style="position:absolute;right:-31px;top:34%;width:36px;overflow:visible"><path d="M0 3 L38 14 L0 25" fill="#FFFFFF" stroke="#0B1B33" stroke-width="4" stroke-linejoin="round"></path><path d="M-5 6 L-5 22" stroke="#FFFFFF" stroke-width="7"></path></svg>
+        </div>
       </div>
 
       <div style="position:absolute;left:var(--ewL,calc(50% - 151px));top:var(--ewT,71px);display:flex;flex-direction:var(--ewDir,row);align-items:center;gap:var(--ewGap,30px)">
@@ -90,6 +98,16 @@ a:hover{color:inherit}
           <div style="font-weight:800;font-size:var(--lnFs,52px);line-height:1;white-space:nowrap;color:#000000">{{ nftName }}</div>
           <div style="font-weight:800;font-size:var(--lsFs,18px);letter-spacing:.14em;color:#0B1B33">CURRENT AUCTION</div>
           <a href="{{ openseaUrl }}" target="_blank" rel="noopener" style="margin-top:10px;display:inline-block;align-self:var(--btnSelf,flex-start);background:#2B91EA;color:#FFFFFF;border:3px solid #0B1B33;border-radius:14px;box-shadow:0 5px 0 #0B1B33;padding:var(--btnPad,16px 34px 9px);font-weight:800;font-size:var(--btnFs,26px);white-space:nowrap;transition:transform .15s,box-shadow .15s" style-hover="transform:translateY(2px);box-shadow:0 3px 0 #0B1B33">View on OpenSea and Bid ↗</a>
+          <div ref="{{ shareRef }}" style="position:relative;margin-top:14px;align-self:var(--btnSelf,flex-start);display:flex;align-items:center;gap:10px">
+            <button type="button" onClick="{{ share }}" style="font-family:inherit;font-weight:800;font-size:calc(var(--btnFs,26px) * .7);line-height:1;background:#FFFFFF;color:#0B1B33;border:3px solid #0B1B33;border-radius:12px;box-shadow:0 4px 0 #0B1B33;padding:10px 20px 6px;cursor:pointer;white-space:nowrap;transition:transform .15s,box-shadow .15s" style-hover="transform:translateY(2px);box-shadow:0 2px 0 #0B1B33">SHARE AUCTION ↗</button>
+            <sc-if value="{{ copied }}" hint-placeholder-val="{{ false }}"><span ref="{{ toastRef }}" role="status" style="display:block;background:#CCFF00;color:#0B1B33;border:2.5px solid #0B1B33;border-radius:999px;box-shadow:2px 2px 0 #0B1B33;font-weight:800;font-size:calc(var(--btnFs,26px) * .55);letter-spacing:.08em;padding:5px 12px 2px;white-space:nowrap;transform:rotate(-3deg)">LINK COPIED!</span></sc-if>
+            <sc-if value="{{ shareOpen }}" hint-placeholder-val="{{ false }}">
+              <div role="menu" style="position:absolute;left:0;top:calc(100% + 12px);z-index:10;display:flex;flex-direction:column;gap:8px;background:#FFFFFF;border:3px solid #0B1B33;border-radius:16px;box-shadow:5px 5px 0 #0B1B33;padding:10px;min-width:220px">
+                <a role="menuitem" href="{{ tweetUrl }}" target="_blank" rel="noopener" onClick="{{ closeShare }}" style="display:block;background:#0B1B33;color:#FFFFFF;border-radius:10px;padding:10px 14px 6px;font-weight:800;font-size:calc(var(--btnFs,26px) * .62);white-space:nowrap" style-hover="background:#1668BE;color:#FFFFFF">Share on X ↗</a>
+                <button role="menuitem" type="button" onClick="{{ copyLink }}" style="font-family:inherit;text-align:left;background:#E4EAF2;color:#0B1B33;border:0;border-radius:10px;padding:10px 14px 6px;font-weight:800;font-size:calc(var(--btnFs,26px) * .62);cursor:pointer;white-space:nowrap" style-hover="background:#CCFF00">Copy Link</button>
+              </div>
+            </sc-if>
+          </div>
         </div>
       </div>
 
@@ -99,20 +117,23 @@ a:hover{color:inherit}
         <sc-if value="{{ hasOverflow }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:28px;bottom:14px;color:#FFFFFF;font-weight:800;font-size:14px;letter-spacing:.12em;white-space:nowrap">{{ overflowText }}</div></sc-if>
 
         <div style="display:flex;justify-content:center;width:100%">
-          <div style="display:flex;flex-direction:column;align-items:center;position:relative;flex:0 0 auto;width:var(--vipSeat,170px)">
+          <div data-seat="" style="display:flex;flex-direction:column;align-items:center;position:relative;flex:0 0 auto;width:var(--vipSeat,170px)">
             <svg ref="{{ zipRef }}" viewBox="0 0 200 140" aria-hidden="true" style="position:absolute;left:50%;bottom:0;width:calc(var(--vipW,74px) * 2.4);transform:translateX(-50%);pointer-events:none;opacity:0"><path d="M20 40 L44 54 M10 80 L38 80 M20 120 L44 106 M180 40 L156 54 M190 80 L162 80 M180 120 L156 106" stroke="#CCFF00" stroke-width="6" stroke-linecap="round"></path></svg>
-            <div style="display:flex;align-items:flex-end;justify-content:center;width:100%;min-height:var(--vipSlot,96px)">
+            <div style="display:flex;align-items:flex-end;justify-content:center;width:100%;min-height:var(--vipSlot,96px);position:relative;z-index:2">
               <sc-if value="{{ vip.has }}" hint-placeholder-val="{{ false }}">
                 <div data-wallet="{{ vip.wallet }}" title="{{ vip.title }}" style="display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1.05;padding-bottom:3px">
-                  <svg viewBox="0 0 40 20" aria-hidden="true" style="display:block;width:28px;margin-bottom:-5px;position:relative;z-index:1"><path d="M3 18 L6 4 L14 12 L20 2 L26 12 L34 4 L37 18 Z" fill="#CCFF00" stroke="#0B1B33" stroke-width="2.6" stroke-linejoin="round"></path></svg>
-                  <span style="display:block;width:var(--vipAv,42px);height:var(--vipAv,42px);border:3px solid #0B1B33;border-radius:50%;overflow:hidden;background:#FFFFFF;flex:0 0 auto"><span style="display:block;width:100%;height:100%;background-image:{{ vip.bg }};background-size:cover;background-position:center"></span></span>
+                  <svg data-crown="" viewBox="0 0 40 22" aria-hidden="true" style="display:block;width:40px;margin-bottom:-7px;position:relative;z-index:1;overflow:visible"><path d="M3 19 L6 5 L14 13 L20 3 L26 13 L34 5 L37 19 Z" fill="#CCFF00" stroke="#0B1B33" stroke-width="2.6" stroke-linejoin="round"></path><path d="M5 16 H35" stroke="#0B1B33" stroke-width="1.6"></path><circle cx="6" cy="5" r="2.4" fill="#FF6B1A" stroke="#0B1B33" stroke-width="1.4"></circle><circle cx="20" cy="3" r="2.6" fill="#FFFFFF" stroke="#0B1B33" stroke-width="1.4"></circle><circle cx="34" cy="5" r="2.4" fill="#FF6B1A" stroke="#0B1B33" stroke-width="1.4"></circle></svg>
+                  <span data-av="" style="display:block;width:var(--vipAv,42px);height:var(--vipAv,42px);border:3px solid #0B1B33;border-radius:50%;overflow:hidden;background:#FFFFFF;flex:0 0 auto;box-shadow:0 0 0 3px #CCFF00,0 0 0 6px #0B1B33"><span style="display:block;width:100%;height:100%;background-image:{{ vip.bg }};background-size:cover;background-position:center"></span></span>
                   <span style="font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;font-size:var(--vipNm,18px);max-width:calc(var(--vipSeat,170px) - 6px)">{{ vip.name }}</span>
-                  <span style="font-weight:800;color:#CCFF00;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:var(--vipAmt,20px)">{{ vip.amt }}</span>
+                  <span data-amt="" style="font-weight:800;color:#CCFF00;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:var(--vipAmt,20px)">{{ vip.amt }}</span><span style="font-weight:700;color:#E3EEFF;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:calc(var(--vipAmt,20px) * .72)">{{ vip.usd }}</span>
                   <span style="width:3px;height:6px;background:#0B1B33;margin-top:1px;border-radius:2px"></span>
                 </div>
               </sc-if>
             </div>
-            <svg ref="{{ vipChairRef }}" viewBox="0 0 120 140" aria-hidden="true" style="display:block;overflow:visible;filter:url(#wobble);width:var(--vipW,74px)">
+            <div ref="{{ vipGlowRef }}" aria-hidden="true" style="position:absolute;left:50%;bottom:-8px;width:calc(var(--vipW,92px) * 2.7);height:calc(var(--vipW,92px) * 1.6);transform:translateX(-50%);background:radial-gradient(ellipse at 50% 62%,rgba(204,255,0,.6) 0%,rgba(204,255,0,.2) 45%,rgba(204,255,0,0) 70%);pointer-events:none"></div>
+            <svg aria-hidden="true" viewBox="0 0 20 20" style="position:absolute;left:calc(50% - var(--vipW,92px) * .95);bottom:calc(var(--vipW,92px) * .9);width:16px;pointer-events:none"><path d="M10 1 L12 8 L19 10 L12 12 L10 19 L8 12 L1 10 L8 8Z" fill="#CCFF00" stroke="#0B1B33" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+            <svg aria-hidden="true" viewBox="0 0 20 20" style="position:absolute;left:calc(50% + var(--vipW,92px) * .7);bottom:calc(var(--vipW,92px) * 1.15);width:12px;pointer-events:none"><path d="M10 1 L12 8 L19 10 L12 12 L10 19 L8 12 L1 10 L8 8Z" fill="#FFFFFF" stroke="#0B1B33" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+            <svg ref="{{ vipChairRef }}" data-chair="" viewBox="0 0 120 140" aria-hidden="true" style="display:block;position:relative;overflow:visible;filter:url(#wobble) drop-shadow(0 0 6px rgba(204,255,0,.9));width:var(--vipW,74px)">
               <path d="M22 26 L32 4 L44 20 L60 0 L76 20 L88 4 L98 26 Q104 60 98 86 L22 86 Q16 60 22 26Z" fill="#0B1B33" stroke="#0B1B33" stroke-width="4" stroke-linejoin="round"></path>
               <path d="M32 32 Q60 22 88 32 Q92 56 88 78 L32 78 Q28 56 32 32Z" fill="url(#checker)" stroke="#fff" stroke-width="3"></path>
               <circle cx="32" cy="4" r="5" fill="#CCFF00" stroke="#0B1B33" stroke-width="2.5"></circle><circle cx="60" cy="0" r="5.5" fill="#CCFF00" stroke="#0B1B33" stroke-width="2.5"></circle><circle cx="88" cy="4" r="5" fill="#CCFF00" stroke="#0B1B33" stroke-width="2.5"></circle>
@@ -124,24 +145,24 @@ a:hover{color:inherit}
               <path d="M16 104 L14 132 M104 104 L106 132 M38 104 L38 124 M82 104 L82 124" stroke="#0B1B33" stroke-width="7" stroke-linecap="round"></path>
               <circle cx="14" cy="134" r="5" fill="#0B1B33"></circle><circle cx="106" cy="134" r="5" fill="#0B1B33"></circle>
             </svg>
-            <div style="position:absolute;left:calc(50% + var(--vipW,74px) / 2 + 10px);bottom:12%;background:#CCFF00;color:#0B1B33;border:2.5px solid #0B1B33;border-radius:999px;box-shadow:2px 2px 0 #0B1B33;font-weight:800;font-size:12px;letter-spacing:.1em;padding:3px 10px 0;white-space:nowrap;transform:rotate(-4deg)">TOP BIDDER</div>
+            <div ref="{{ badgeRef }}" style="position:absolute;left:calc(50% + var(--vipW,74px) / 2 + 10px);bottom:12%;background:#CCFF00;color:#0B1B33;border:2.5px solid #0B1B33;border-radius:999px;box-shadow:2px 2px 0 #0B1B33;font-weight:800;font-size:14px;letter-spacing:.1em;padding:4px 12px 1px;white-space:nowrap;transform:rotate(-4deg);z-index:3">★ TOP BIDDER</div>
           </div>
         </div>
 
         <div style="display:flex;justify-content:center;width:100%;gap:30px">
           <sc-for list="{{ prem }}" as="s" hint-placeholder-count="3">
-            <div style="display:flex;flex-direction:column;align-items:center;position:relative;flex:0 0 auto;width:var(--premSeat,110px)">
+            <div data-seat="" style="display:flex;flex-direction:column;align-items:center;position:relative;flex:0 0 auto;width:var(--premSeat,110px)">
               <div style="display:flex;align-items:flex-end;justify-content:center;width:100%;min-height:var(--premSlot,66px)">
                 <sc-if value="{{ s.has }}" hint-placeholder-val="{{ false }}">
                   <div data-wallet="{{ s.wallet }}" title="{{ s.title }}" style="display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1.05;padding-bottom:3px">
-                    <span style="display:block;width:var(--premAv,30px);height:var(--premAv,30px);border:3px solid #0B1B33;border-radius:50%;overflow:hidden;background:#FFFFFF;flex:0 0 auto"><span style="display:block;width:100%;height:100%;background-image:{{ s.bg }};background-size:cover;background-position:center"></span></span>
+                    <span data-av="" style="display:block;width:var(--premAv,30px);height:var(--premAv,30px);border:3px solid #0B1B33;border-radius:50%;overflow:hidden;background:#FFFFFF;flex:0 0 auto"><span style="display:block;width:100%;height:100%;background-image:{{ s.bg }};background-size:cover;background-position:center"></span></span>
                     <span style="font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;font-size:var(--premNm,14px);max-width:calc(var(--premSeat,110px) - 6px)">{{ s.name }}</span>
-                    <span style="font-weight:800;color:#CCFF00;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:var(--premAmt,15px)">{{ s.amt }}</span>
+                    <span data-amt="" style="font-weight:800;color:#CCFF00;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:var(--premAmt,15px)">{{ s.amt }}</span><span style="font-weight:700;color:#E3EEFF;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:calc(var(--premAmt,15px) * .72)">{{ s.usd }}</span>
                     <span style="width:3px;height:6px;background:#0B1B33;margin-top:1px;border-radius:2px"></span>
                   </div>
                 </sc-if>
               </div>
-              <svg viewBox="0 0 90 96" aria-hidden="true" style="display:block;overflow:visible;filter:url(#wobble);width:var(--premW,56px)">
+              <svg data-chair="" viewBox="0 0 90 96" aria-hidden="true" style="display:block;overflow:visible;filter:url(#wobble);width:var(--premW,56px)">
                 <path d="M18 8 Q45 -4 72 8 Q76 30 72 52 L18 52 Q14 30 18 8Z" fill="url(#stripes)" stroke="#0B1B33" stroke-width="4.5" stroke-linejoin="round"></path>
                 <path d="M6 44 Q4 34 14 34 Q20 36 20 48 L20 62 L6 62 Z M84 44 Q86 34 76 34 Q70 36 70 48 L70 62 L84 62 Z" fill="#0B1B33"></path>
                 <path d="M14 52 Q45 46 76 52 L78 66 L12 66 Z" fill="#FF6B1A" stroke="#0B1B33" stroke-width="4" stroke-linejoin="round"></path>
@@ -153,18 +174,18 @@ a:hover{color:inherit}
 
         <div style="display:flex;justify-content:center;width:100%;gap:2px">
           <sc-for list="{{ r3 }}" as="s" hint-placeholder-count="6">
-            <div style="display:flex;flex-direction:column;align-items:center;position:relative;flex:0 0 auto;width:var(--stdSeat,78px)">
+            <div data-seat="" style="display:flex;flex-direction:column;align-items:center;position:relative;flex:0 0 auto;width:var(--stdSeat,78px)">
               <div style="display:flex;align-items:flex-end;justify-content:center;width:100%;min-height:var(--stdSlot,50px)">
                 <sc-if value="{{ s.has }}" hint-placeholder-val="{{ false }}">
                   <div data-wallet="{{ s.wallet }}" title="{{ s.title }}" style="display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1.05;padding-bottom:3px">
-                    <span style="display:block;width:var(--stdAv,22px);height:var(--stdAv,22px);border:2px solid #0B1B33;border-radius:50%;overflow:hidden;background:#FFFFFF;flex:0 0 auto"><span style="display:block;width:100%;height:100%;background-image:{{ s.bg }};background-size:cover;background-position:center"></span></span>
+                    <span data-av="" style="display:block;width:var(--stdAv,22px);height:var(--stdAv,22px);border:2px solid #0B1B33;border-radius:50%;overflow:hidden;background:#FFFFFF;flex:0 0 auto"><span style="display:block;width:100%;height:100%;background-image:{{ s.bg }};background-size:cover;background-position:center"></span></span>
                     <span style="font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;font-size:var(--stdNm,11px);max-width:calc(var(--stdSeat,78px) - 6px)">{{ s.name }}</span>
-                    <span style="font-weight:800;color:#CCFF00;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:var(--stdAmt,12px)">{{ s.amt }}</span>
+                    <span data-amt="" style="font-weight:800;color:#CCFF00;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:var(--stdAmt,12px)">{{ s.amt }}</span><span style="font-weight:700;color:#E3EEFF;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:calc(var(--stdAmt,12px) * .72)">{{ s.usd }}</span>
                     <span style="width:2px;height:4px;background:#0B1B33;margin-top:1px;border-radius:2px"></span>
                   </div>
                 </sc-if>
               </div>
-              <svg viewBox="0 0 60 82" aria-hidden="true" style="display:block;overflow:visible;filter:url(#wobble);width:var(--stdW,34px)">
+              <svg data-chair="" viewBox="0 0 60 82" aria-hidden="true" style="display:block;overflow:visible;filter:url(#wobble);width:var(--stdW,34px)">
                 <path d="M15 4 Q30 -2 45 4 Q47 22 44 42 L16 42 Q13 22 15 4Z" fill="#0B1B33"></path>
                 <path d="M20 10 Q30 7 40 10" stroke="#CCFF00" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"></path>
                 <path d="M7 41 Q30 37 53 41 L53 50 L7 50 Z" fill="#0B1B33"></path>
@@ -190,6 +211,26 @@ a:hover{color:inherit}
       </div>
     </div>
   </main>
+  <aside aria-label="Bid history" style="flex:0 0 auto;width:{{ asideW }};position:relative;display:flex;flex-direction:column;min-height:0;background:#1668BE;border:4px solid #0B1B33;border-radius:26px;box-shadow:6px 6px 0 #0B1B33;padding:30px 12px 12px;margin:14px 6px 8px 0">
+    <div style="position:absolute;top:-17px;left:22px;transform:rotate(-2deg);background:#FFFFFF;color:#0B1B33;border:3px solid #0B1B33;border-radius:999px;box-shadow:3px 3px 0 #0B1B33;padding:5px 16px 1px;font-weight:800;font-size:15px;letter-spacing:.12em;white-space:nowrap">BID HISTORY</div>
+    <sc-if value="{{ histEmpty }}" hint-placeholder-val="{{ true }}">
+      <div style="margin:auto 0;padding:24px 0;text-align:center;color:#FFFFFF;font-weight:800;font-size:14px;letter-spacing:.1em">{{ histEmptyText }}</div>
+    </sc-if>
+    <div ref="{{ histRef }}" style="display:flex;flex-direction:column;min-height:0;overflow:hidden">
+      <sc-for list="{{ history }}" as="h" hint-placeholder-count="0">
+        <div data-hist-id="{{ h.id }}" title="{{ h.title }}" style="display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;column-gap:10px;padding:8px 8px 6px;border-radius:12px;border-bottom:2px dashed rgba(255,255,255,.3)">
+          <span style="display:block;width:32px;height:32px;border:2.5px solid #0B1B33;border-radius:50%;overflow:hidden;background:#FFFFFF"><span style="display:block;width:100%;height:100%;background-image:{{ h.bg }};background-size:cover;background-position:center"></span></span>
+          <span style="display:flex;flex-direction:column;min-width:0;line-height:1.12">
+            <span style="font-weight:800;font-size:15px;color:#FFFFFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ h.name }}</span>
+            <span style="font-weight:800;font-size:15px;color:#CCFF00;white-space:nowrap;font-variant-numeric:tabular-nums">{{ h.amt }}</span>
+            <span style="font-weight:600;font-size:12px;color:#E3EEFF;white-space:nowrap">{{ h.usd }}</span>
+          </span>
+          <span style="align-self:start;padding-top:2px;font-weight:700;font-size:12px;color:#E3EEFF;white-space:nowrap">{{ h.ago }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </aside>
+  </div>
 
   <div aria-hidden="true" style="position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;pointer-events:none;background:rgba(11,27,51,.35);opacity:{{ zoomOpacity }};transition:opacity .25s ease">
     <div style="width:min(72vh,72vw);aspect-ratio:1;background:#FFFFFF;border:5px solid #0B1B33;border-radius:12px;box-shadow:10px 10px 0 #0B1B33;padding:16px;transform:{{ zoomTransform }};transition:transform .35s cubic-bezier(.3,1.4,.5,1)">
@@ -203,15 +244,17 @@ a:hover{color:inherit}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;apiBase&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;/api/auction&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;OpenSea&quot;},&quot;pollMs&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:15000,&quot;min&quot;:5000,&quot;max&quot;:60000,&quot;step&quot;:1000,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;OpenSea&quot;},&quot;debug&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Developer&quot;}}">
 class Component extends DCLogic {
-  static LAND = { '--signL':'calc(50% - 350px)','--podL':'calc(50% - 431px)','--podT':'186px','--podW':'150px','--ewL':'calc(50% - 151px)','--ewT':'71px','--ewDir':'row','--ewGap':'30px','--easelW':'262px','--lnFs':'52px','--lsFs':'18px','--btnFs':'26px','--btnPad':'16px 34px 9px','--liAlign':'flex-start','--liText':'left','--btnSelf':'flex-start','--floorL':'calc(50% - 630px)','--floorT':'432px','--floorW':'1260px','--floorH':'560px','--r4pad':'40px',
-    '--vipW':'74px','--vipAv':'42px','--vipNm':'18px','--vipAmt':'20px','--vipSlot':'96px','--vipSeat':'170px','--premW':'56px','--premAv':'30px','--premNm':'14px','--premAmt':'15px','--premSlot':'66px','--premSeat':'110px','--stdW':'34px','--stdAv':'22px','--stdNm':'11px','--stdAmt':'12px','--stdSlot':'50px','--stdSeat':'78px' };
-  static PORT = { '--signL':'50%','--podL':'110px','--podT':'190px','--podW':'210px','--ewL':'400px','--ewT':'206px','--ewDir':'column','--ewGap':'8px','--easelW':'170px','--lnFs':'30px','--lsFs':'13px','--btnFs':'16px','--btnPad':'8px 18px 4px','--liAlign':'center','--liText':'center','--btnSelf':'center','--floorL':'20px','--floorT':'560px','--floorW':'720px','--floorH':'750px','--r4pad':'0px',
-    '--vipW':'112px','--vipAv':'54px','--vipNm':'22px','--vipAmt':'24px','--vipSlot':'124px','--vipSeat':'200px','--premW':'84px','--premAv':'40px','--premNm':'16px','--premAmt':'18px','--premSlot':'86px','--premSeat':'150px','--stdW':'50px','--stdAv':'28px','--stdNm':'11px','--stdAmt':'12px','--stdSlot':'60px','--stdSeat':'68px' };
-  state = { artZoom: false, dbg: null, phase: 'connecting', nft: null, offers: [], accounts: {}, endsAt: 0, status: 'live', sold: false, artFailed: false, stale: false, imgTick: 0 };
+  static LAND = { '--signL':'calc(50% - 350px)','--podL':'calc(50% - 431px)','--podT':'186px','--podW':'150px','--ewL':'calc(50% - 151px)','--ewT':'71px','--ewDir':'row','--ewGap':'30px','--easelW':'262px','--lnFs':'52px','--lsFs':'18px','--btnFs':'26px','--btnPad':'16px 34px 9px','--liAlign':'flex-start','--liText':'left','--btnSelf':'flex-start','--floorL':'calc(50% - 630px)','--floorT':'432px','--floorW':'1260px','--floorH':'560px','--r4pad':'40px','--bubL':'calc(50% - 700px)','--bubT':'214px','--bubW':'250px','--bubFs':'24px',
+    '--vipW':'92px','--vipAv':'42px','--vipNm':'18px','--vipAmt':'20px','--vipSlot':'124px','--vipSeat':'170px','--premW':'56px','--premAv':'30px','--premNm':'14px','--premAmt':'15px','--premSlot':'80px','--premSeat':'110px','--stdW':'34px','--stdAv':'22px','--stdNm':'11px','--stdAmt':'12px','--stdSlot':'64px','--stdSeat':'78px' };
+  static PORT = { '--signL':'50%','--podL':'110px','--podT':'190px','--podW':'210px','--ewL':'400px','--ewT':'206px','--ewDir':'column','--ewGap':'8px','--easelW':'170px','--lnFs':'30px','--lsFs':'13px','--btnFs':'16px','--btnPad':'8px 18px 4px','--liAlign':'center','--liText':'center','--btnSelf':'center','--floorL':'20px','--floorT':'560px','--floorW':'720px','--floorH':'750px','--r4pad':'0px','--bubL':'14px','--bubT':'232px','--bubW':'150px','--bubFs':'17px',
+    '--vipW':'128px','--vipAv':'54px','--vipNm':'22px','--vipAmt':'24px','--vipSlot':'150px','--vipSeat':'200px','--premW':'84px','--premAv':'40px','--premNm':'16px','--premAmt':'18px','--premSlot':'100px','--premSeat':'150px','--stdW':'50px','--stdAv':'28px','--stdNm':'11px','--stdAmt':'12px','--stdSlot':'74px','--stdSeat':'68px' };
+  state = { ethUsd: null, now: Date.now(), event: null, shareOpen: false, copied: false, vw: 0, vh: 0, artZoom: false, dbg: null, phase: 'connecting', nft: null, offers: [], accounts: {}, endsAt: 0, status: 'live', sold: false, artFailed: false, stale: false, imgTick: 0 };
   panelRef = React.createRef(); sceneRef = React.createRef(); offerRef = React.createRef();
   gavelRef = React.createRef(); bangRef = React.createRef(); artRef = React.createRef(); zipRef = React.createRef();
   vipChairRef = React.createRef(); raysRef = React.createRef(); soldWordRef = React.createRef(); soldLotRef = React.createRef();
   soldPriceRef = React.createRef(); congratsRef = React.createRef();
+  bubbleRef = React.createRef(); histRef = React.createRef(); vipGlowRef = React.createRef(); badgeRef = React.createRef(); shareRef = React.createRef(); toastRef = React.createRef();
+  hadData = false; prevHist = null;
   SCALE = 1; ending = false; prevTop = null; prevLastId = null; prevNftKey = ''; timers = [];
   accountCache = new Map(); imgOk = new Map(); offerSig = ''; pollCount = 0; serverPoll = null; runId = 0;
 
@@ -226,7 +269,7 @@ class Component extends DCLogic {
 
   /* ---------- helpers ---------- */
   hash(s) { let h = 2166136261; for (const c of String(s)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
-  fmt(n) { n = Number(n); if (!isFinite(n)) return '—'; return n >= 0.1 ? n.toFixed(2) : String(parseFloat(n.toPrecision(2))); }
+  fmt(n) { n = Number(n); if (!isFinite(n)) return '—'; return n >= 0.1 ? String(parseFloat(n.toFixed(4))) : String(parseFloat(n.toPrecision(3))); }
   short(a) { return a ? `0x${a.slice(2, 4).toUpperCase()}...${a.slice(-3).toUpperCase()}` : ''; }
   nameFor(addr) { const a = this.state.accounts[addr] || {}; return a.username || a.displayName || this.short(addr); }
   avatarBg(addr) {
@@ -273,6 +316,11 @@ class Component extends DCLogic {
 
   /* ---------- layout ---------- */
   componentDidUpdate(prev) {
+    const msg = this.speech(), ev = this.state.event ? this.state.event.at : 0;
+    if (this.lastSpeech !== undefined && (msg !== this.lastSpeech || ev !== this.lastEventAt)) {
+      this.anim(this.bubbleRef.current, [{ transform: 'scale(.6) rotate(-6deg)', opacity: .4 }, { transform: 'scale(1.1) rotate(2deg)', opacity: 1, offset: .55 }, { transform: 'scale(.97)', offset: .8 }, { transform: 'none' }], { duration: 520, easing: 'ease-out' });
+    }
+    this.lastSpeech = msg; this.lastEventAt = ev;
     this.fit();
     if (prev.apiBase !== this.props.apiBase) this.restart();
   }
@@ -296,7 +344,13 @@ class Component extends DCLogic {
     root.querySelectorAll('[data-wallet]').forEach(el => { if (el.dataset.wallet) m.set(el.dataset.wallet, el.getBoundingClientRect()); });
     return m;
   }
-  commit(patch) { const rects = this.tagRects(); this.setState(patch, () => this.afterOffers(rects)); }
+  commit(patch) {
+    const rects = this.tagRects();
+    const prevB = new Map(this.bidders(this.state.offers).map(b => [b.address, b]));
+    const prevIds = new Set(this.state.offers.map(o => o.id));
+    const ghosts = this.captureGhosts(prevB, patch.offers);
+    this.setState(patch, () => { this.afterOffers(rects); this.bidFx(prevB, prevIds, ghosts); });
+  }
   afterOffers(first) {
     const root = this.sceneRef.current; if (!root) return;
     root.querySelectorAll('[data-wallet]').forEach(el => {
@@ -326,6 +380,161 @@ class Component extends DCLogic {
       this.anim(this.zipRef.current, [{ opacity: 0 }, { opacity: 1, offset: .2 }, { opacity: 0 }], { duration: 900, easing: 'ease-out' });
     }
     this.prevTop = top ? top.address : null;
+  }
+
+  /* ---------- USD / time helpers ---------- */
+  usdOf(amount, currency) {
+    const c = String(currency || '').toUpperCase(), n = Number(amount);
+    if (!isFinite(n)) return null;
+    if (c === 'ETH' || c === 'WETH') return this.state.ethUsd ? n * this.state.ethUsd : null;
+    if (['USDG', 'USDC', 'USDT', 'DAI', 'USD'].includes(c)) return n;
+    return null;
+  }
+  usdText(amount, currency) {
+    const v = this.usdOf(amount, currency);
+    if (v == null) return '';
+    if (v > 0 && v < 0.01) return '≈ <$0.01';
+    return '≈ $' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  ago(ts, now) {
+    const s = Math.max(0, Math.round((now - ts) / 1000));
+    if (s < 60) return `${s} sec ago`;
+    if (s < 3600) return `${Math.floor(s / 60)} min ago`;
+    if (s < 86400) return `${Math.floor(s / 3600)} hr ago`;
+    const d = Math.floor(s / 86400); return `${d} day${d === 1 ? '' : 's'} ago`;
+  }
+  loadPrice = () => { this.api('price').then(r => { if (r && Number(r.ethUsd) > 0) this.setState({ ethUsd: Number(r.ethUsd) }); }).catch(() => {}); };
+
+  /* ---------- auctioneer speech (event-driven) ---------- */
+  speech() {
+    const s = this.state, now = s.now;
+    if (s.endsAt && s.status === 'live') {
+      const rem = s.endsAt - now;
+      if (rem > 0 && rem <= 45000) return 'GOING TWICE...';
+      if (rem > 0 && rem <= 120000) return 'GOING ONCE...';
+    }
+    if (s.event && now - s.event.at < 12000) return { top: 'NEW TOP BIDDER!', more: 'DO I HEAR MORE?', bid: 'WE HAVE A NEW BID!' }[s.event.type];
+    const recent = (s.phase === 'ready' ? s.offers : []).filter(o => now - o.createdAt < 15 * 60000).length;
+    if (recent >= 3) return 'COME ON, SKELLIES!';
+    return "WHO'S GOT THE NEXT BID?";
+  }
+
+  /* ---------- share ---------- */
+  auctionUrl() { return location.origin + location.pathname; }
+  shareText() {
+    const s = this.state, b = this.bidders(s.phase === 'ready' ? s.offers : [])[0];
+    const title = this.nftTitle(s.nft) || 'SKELLY';
+    const offer = b ? `${this.fmt(b.offerAmount)} ${b.currency}`.trim() : 'no offers yet';
+    return { title, text: `🔨 ${title} is up for auction!\n\nCurrent offer: ${offer}\n\nBid now 👇\n${this.auctionUrl()}\n\n#SKELLY #NFT #Web3` };
+  }
+  share = async () => {
+    const d = this.shareText();
+    if (navigator.share) {
+      try { await navigator.share({ title: d.title, text: d.text }); return; }
+      catch (e) { if (e && e.name === 'AbortError') return; }
+    }
+    this.setState(st => ({ shareOpen: !st.shareOpen }));
+  };
+  closeShare = () => this.setState({ shareOpen: false });
+  copyLink = async () => {
+    const url = this.auctionUrl();
+    try { await navigator.clipboard.writeText(url); }
+    catch (e) {
+      const ta = document.createElement('textarea'); ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (_) {} ta.remove();
+    }
+    clearTimeout(this.copyTimer);
+    this.setState({ copied: true, shareOpen: false }, () => this.anim(this.toastRef.current, [
+      { opacity: 0, transform: 'translateY(6px) scale(.6) rotate(-8deg)' }, { opacity: 1, transform: 'scale(1.08) rotate(-3deg)', offset: .6 }, { opacity: 1, transform: 'scale(1) rotate(-3deg)' }
+    ], { duration: 380, easing: 'ease-out' }));
+    this.copyTimer = setTimeout(() => this.setState({ copied: false }), 1800);
+  };
+
+  /* ---------- bid activity fx (only runs when OpenSea data actually changed) ---------- */
+  captureGhosts(prevB, nextOffers) {
+    const scene = this.sceneRef.current; if (!scene || !nextOffers) return [];
+    const next = new Set(nextOffers.map(o => o.maker)), out = [];
+    prevB.forEach((b, w) => {
+      if (next.has(w)) return;
+      const el = scene.querySelector(`[data-wallet="${w}"]`);
+      if (el) out.push({ clone: el.cloneNode(true), rect: el.getBoundingClientRect() });
+    });
+    return out;
+  }
+  tagLabel(el, text) {
+    const t = document.createElement('div'); t.textContent = text; t.setAttribute('aria-hidden', 'true');
+    Object.assign(t.style, { position: 'absolute', left: '50%', top: '-22px', background: '#CCFF00', color: '#0B1B33', border: '2.5px solid #0B1B33', borderRadius: '999px', boxShadow: '2px 2px 0 #0B1B33', font: "800 11px/1 'Baloo 2', sans-serif", letterSpacing: '.08em', padding: '4px 8px 1px', whiteSpace: 'nowrap', zIndex: '6', pointerEvents: 'none', transform: 'translateX(-50%) rotate(-4deg)' });
+    el.style.position = 'relative'; el.appendChild(t);
+    const a = this.anim(t, [
+      { opacity: 0, transform: 'translateX(-50%) translateY(6px) scale(.5) rotate(-10deg)' },
+      { opacity: 1, transform: 'translateX(-50%) translateY(-4px) scale(1.1) rotate(-4deg)', offset: .15 },
+      { opacity: 1, transform: 'translateX(-50%) scale(1) rotate(-4deg)', offset: .8 },
+      { opacity: 0, transform: 'translateX(-50%) translateY(-10px) scale(.9) rotate(-4deg)' }
+    ], { duration: 1700, easing: 'ease-out', fill: 'forwards' });
+    const rm = () => t.remove(); if (a) a.onfinish = rm; else setTimeout(rm, 1700);
+  }
+  countUp(el, wallet, from, to) {
+    const amt = el.querySelector('[data-amt]'); if (!amt || this.reduced || from === to) return;
+    const cur = (this.bidders(this.state.offers).find(b => b.address === wallet) || {}).currency || '';
+    const t0 = performance.now(), D = 800;
+    const step = now => {
+      const k = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - k, 3);
+      if (k < 1) { amt.textContent = `${this.fmt(from + (to - from) * e)} ${cur}`.trim(); requestAnimationFrame(step); }
+      else { const b = this.bidders(this.state.offers).find(x => x.address === wallet); if (b) amt.textContent = `${this.fmt(b.offerAmount)} ${b.currency}`.trim(); }
+    };
+    requestAnimationFrame(step);
+  }
+  bidFx(prevB, prevIds, ghosts) {
+    const scene = this.sceneRef.current; if (!scene) return;
+    const sr = scene.getBoundingClientRect();
+    ghosts.forEach(({ clone, rect }) => {
+      clone.removeAttribute('data-wallet');
+      Object.assign(clone.style, { position: 'absolute', left: (rect.left - sr.left) / this.SCALE + 'px', top: (rect.top - sr.top) / this.SCALE + 'px', width: rect.width / this.SCALE + 'px', margin: '0', pointerEvents: 'none', zIndex: '4' });
+      scene.appendChild(clone);
+      const a = this.anim(clone, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-18px) scale(.7) rotate(6deg)' }], { duration: 650, easing: 'ease-in', fill: 'forwards' });
+      const rm = () => clone.remove(); if (a) a.onfinish = rm; else rm();
+    });
+    const hist = this.histRef.current, histIds = new Set();
+    const first = !this.hadData; this.hadData = true;
+    if (hist) hist.querySelectorAll('[data-hist-id]').forEach(row => {
+      const id = row.dataset.histId; histIds.add(id);
+      if (!first && this.prevHist && !this.prevHist.has(id)) {
+        this.anim(row, [{ opacity: 0, transform: 'translateY(-14px)', backgroundColor: 'rgba(204,255,0,.9)' }, { opacity: 1, transform: 'none', backgroundColor: 'rgba(204,255,0,.55)', offset: .35 }, { opacity: 1, transform: 'none', backgroundColor: 'rgba(204,255,0,0)' }], { duration: 1600, easing: 'ease-out' });
+      }
+    });
+    this.prevHist = histIds;
+    if (first) return;
+
+    const now = this.bidders(this.state.offers), nowMap = new Map(now.map(b => [b.address, b]));
+    const prevTop = prevB.size ? prevB.keys().next().value : null, prevTopAmt = prevTop ? prevB.get(prevTop).offerAmount : 0;
+    const top = now[0] || null;
+    let changed = false;
+    nowMap.forEach((b, w) => {
+      const el = scene.querySelector(`[data-wallet="${w}"]`); if (!el) return;
+      const p = prevB.get(w);
+      if (!p) { changed = true; this.tagLabel(el, 'NEW BID'); return; }
+      if (p.offerAmount !== b.offerAmount || p.createdAt !== b.createdAt) {
+        changed = true;
+        this.tagLabel(el, 'BID UPDATED');
+        this.countUp(el, w, p.offerAmount, b.offerAmount);
+        const chair = el.closest('[data-seat]') && el.closest('[data-seat]').querySelector('[data-chair]');
+        this.anim(chair, [{ transform: 'none' }, { transform: 'translateY(-6px) rotate(-4deg)', offset: .25 }, { transform: 'rotate(3deg)', offset: .5 }, { transform: 'rotate(-1.5deg)', offset: .75 }, { transform: 'none' }], { duration: 700, easing: 'ease-out' });
+      }
+      if (!p || p.offerAmount !== b.offerAmount) this.anim(el.querySelector('[data-av]'), [{ transform: 'scale(1)' }, { transform: 'scale(1.25)', boxShadow: '0 0 0 5px #CCFF00', offset: .35 }, { transform: 'scale(.95)', offset: .7 }, { transform: 'scale(1)' }], { duration: 750, easing: 'ease-out' });
+    });
+    const newOffer = this.state.offers.some(o => !prevIds.has(o.id));
+    let type = null;
+    if (top && prevTop && top.address !== prevTop) type = 'top';
+    else if (top && prevTop && top.offerAmount > prevTopAmt) type = 'more';
+    else if (changed || newOffer) type = 'bid';
+    if (type === 'top' || (top && !prevTop)) {
+      const vipEl = scene.querySelector(`[data-wallet="${top.address}"]`);
+      this.anim(vipEl && vipEl.querySelector('[data-crown]'), [{ opacity: 0, transform: 'translateY(-46px) rotate(-35deg) scale(.3)' }, { opacity: 1, transform: 'translateY(4px) rotate(8deg) scale(1.15)', offset: .7 }, { opacity: 1, transform: 'none' }], { duration: 700, delay: 450, easing: 'ease-out', fill: 'backwards' });
+      this.anim(this.badgeRef.current, [{ transform: 'rotate(-4deg) scale(1)' }, { transform: 'rotate(-14deg) scale(1.35)', offset: .3 }, { transform: 'rotate(4deg) scale(.95)', offset: .6 }, { transform: 'rotate(-4deg) scale(1)' }], { duration: 800, delay: 500, easing: 'ease-out' });
+      this.anim(this.vipGlowRef.current, [{ filter: 'brightness(1)' }, { filter: 'brightness(1.6)', offset: .3 }, { filter: 'brightness(1)' }], { duration: 1200, delay: 400 });
+    }
+    if (type === 'bid') this.anim(this.gavelRef.current, [{ transform: 'none' }, { transform: 'rotate(-1.5deg) translateY(-3px)', offset: .4 }, { transform: 'none' }], { duration: 500, easing: 'ease-out' });
+    if (type) this.setState({ event: { type, at: Date.now() }, now: Date.now() });
   }
 
   /* ---------- NFT ---------- */
@@ -429,7 +638,7 @@ class Component extends DCLogic {
   restart() {
     this.runId++; this.stopFeed(); this.timers.forEach(clearTimeout); this.timers = []; this.ending = false;
     [this.gavelRef, this.bangRef, this.soldWordRef, this.soldLotRef, this.soldPriceRef, this.congratsRef].forEach(r => r.current && r.current.getAnimations().forEach(a => a.cancel()));
-    this.prevTop = null; this.prevLastId = null; this.prevNftKey = ''; this.offerSig = ''; this.pollCount = 0;
+    this.prevTop = null; this.prevLastId = null; this.prevNftKey = ''; this.offerSig = ''; this.pollCount = 0; this.hadData = false; this.prevHist = null;
     const run = this.runId;
     this.setState({ sold: false, status: 'live', offers: [], nft: null, endsAt: 0, phase: 'connecting', stale: false }, () => {
       this.startLive(run);
@@ -464,6 +673,13 @@ class Component extends DCLogic {
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.ro = new ResizeObserver(() => this.fit()); this.observed = null; this.fit();
     this.fitTimer = setInterval(() => this.fit(), 1000);
+    this.nowTimer = setInterval(() => this.setState({ now: Date.now() }), 5000);
+    this.loadPrice(); this.priceTimer = setInterval(this.loadPrice, 60000);
+    this.onResize = () => this.setState({ vw: window.innerWidth, vh: window.innerHeight });
+    window.addEventListener('resize', this.onResize);
+    this.onDocDown = e => { if (this.state.shareOpen && this.shareRef.current && !this.shareRef.current.contains(e.target)) this.setState({ shareOpen: false }); };
+    document.addEventListener('pointerdown', this.onDocDown);
+    this.anim(this.vipGlowRef.current, [{ opacity: .6, transform: 'translateX(-50%) scale(.92)' }, { opacity: 1, transform: 'translateX(-50%) scale(1.06)' }], { duration: 1800, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' });
     this.anim(this.raysRef.current, [{ transform: 'translate(-50%,-50%) rotate(0deg)' }, { transform: 'translate(-50%,-50%) rotate(360deg)' }], { duration: 40000, iterations: Infinity });
     this.clock = setInterval(() => {
       const s = this.state;
@@ -472,16 +688,16 @@ class Component extends DCLogic {
     (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => { this.fit(); this.restart(); });
   }
   componentWillUnmount() {
-    this.runId++; this.stopFeed(); clearInterval(this.clock); clearInterval(this.fitTimer); this.timers.forEach(clearTimeout); if (this.ro) this.ro.disconnect();
+    this.runId++; this.stopFeed(); clearInterval(this.clock); clearInterval(this.fitTimer); clearInterval(this.nowTimer); clearInterval(this.priceTimer); clearTimeout(this.copyTimer); window.removeEventListener('resize', this.onResize); document.removeEventListener('pointerdown', this.onDocDown); this.timers.forEach(clearTimeout); if (this.ro) this.ro.disconnect();
   }
 
   renderVals() {
     const s = this.state, offers = s.phase === 'ready' ? s.offers : [];
     const bidders = this.bidders(offers), top = bidders[0] || null, last = this.lastOffer(offers);
     const item = b => {
-      if (!b) return { has: false, wallet: '', name: '', amt: '', title: '', bg: 'none' };
+      if (!b) return { has: false, wallet: '', name: '', amt: '', usd: '', title: '', bg: 'none' };
       const name = this.nameFor(b.address), amt = `${this.fmt(b.offerAmount)} ${b.currency}`.trim();
-      return { has: true, wallet: b.address, name, amt, title: `${name} · ${amt}`, bg: this.avatarBg(b.address) };
+      return { has: true, wallet: b.address, name, amt, usd: this.usdText(b.offerAmount, b.currency), title: `${name} · ${amt}`, bg: this.avatarBg(b.address) };
     };
     const order = [2, 3, 1, 4, 0, 5];
     const row = base => { const a = Array(6); order.forEach((v, k) => { a[v] = item(bidders[base + k]); }); return a; };
@@ -490,11 +706,17 @@ class Component extends DCLogic {
     const statusText = s.phase === 'connecting' ? 'CONNECTING TO OPENSEA...' : s.phase === 'error' || s.stale ? 'AUCTION DATA UNAVAILABLE' : (!offers.length ? 'NO ACTIVE OFFERS' : '');
     const extra = Math.max(0, bidders.length - 10);
     const winName = top ? this.nameFor(top.address) : 'NO BIDS';
+    const vw = s.vw || window.innerWidth, vh = s.vh || window.innerHeight, narrow = vw < 860;
+    const hist = offers.slice().sort((a, b) => b.createdAt - a.createdAt).slice(0, narrow ? 8 : 10).map(o => {
+      const name = this.nameFor(o.maker), amt = `${this.fmt(o.amount)} ${o.currency}`.trim();
+      return { id: o.id, name, amt, usd: this.usdText(o.amount, o.currency), ago: this.ago(o.createdAt, s.now), bg: this.avatarBg(o.maker), title: `${name} · ${amt} · ${new Date(o.createdAt).toLocaleString()}` };
+    });
     return {
       panelRef: this.panelRef, sceneRef: this.sceneRef, offerRef: this.offerRef, gavelRef: this.gavelRef,
       bangRef: this.bangRef, artRef: this.artRef, zipRef: this.zipRef, vipChairRef: this.vipChairRef, raysRef: this.raysRef,
       soldWordRef: this.soldWordRef, soldLotRef: this.soldLotRef, soldPriceRef: this.soldPriceRef, congratsRef: this.congratsRef,
       offerAmount: top ? this.fmt(top.offerAmount) : '—', currency: top ? top.currency : '',
+      topUsd: top ? this.usdText(top.offerAmount, top.currency) : '', hasTopUsd: !!(top && this.usdText(top.offerAmount, top.currency)),
       hasLastBy: !!top, lastBy: top ? this.nameFor(top.address) : '', lastByTitle: top ? top.address : '',
       nftName: this.nftTitle(nft),
       nftBg: nft && nft.imageUrl ? `url("${nft.imageUrl}")` : 'none',
@@ -503,6 +725,15 @@ class Component extends DCLogic {
       zoomIn: () => { if (nft && nft.imageUrl && !s.artFailed) this.setState({ artZoom: true }); }, zoomOut: () => this.setState({ artZoom: false }),
       zoomOpacity: s.artZoom ? 1 : 0, zoomTransform: s.artZoom ? 'scale(1) rotate(-1.5deg)' : 'scale(.4) rotate(-6deg)',
       vip: item(bidders[0]), prem: [item(bidders[2]), item(bidders[1]), item(bidders[3])], r3: row(4),
+      history: hist, histEmpty: !hist.length, histEmptyText: statusText || 'NO BIDS YET', histRef: this.histRef,
+      speech: this.speech(), bubbleRef: this.bubbleRef, vipGlowRef: this.vipGlowRef, badgeRef: this.badgeRef,
+      share: this.share, closeShare: this.closeShare, copyLink: this.copyLink, shareOpen: !!s.shareOpen, copied: !!s.copied,
+      shareRef: this.shareRef, toastRef: this.toastRef,
+      tweetUrl: 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(this.shareText().text),
+      outerOverflow: narrow ? 'auto' : 'hidden', rowFlex: narrow ? '0 0 auto' : '1 1 auto', rowDir: narrow ? 'column' : 'row',
+      mainFlex: narrow ? '0 0 auto' : '1 1 auto',
+      mainH: narrow ? Math.round(Math.min(vh * 0.92, (vw - 24) * 1320 / 760)) + 'px' : 'auto',
+      asideW: narrow ? 'auto' : 'clamp(250px,21vw,320px)',
       hasStatus: !!statusText, statusText,
       hasOverflow: extra > 0, overflowText: `+ ${extra} OTHER BIDDER${extra === 1 ? '' : 'S'}`,
       soldDisplay: s.sold ? 'flex' : 'none', rayPath: d,

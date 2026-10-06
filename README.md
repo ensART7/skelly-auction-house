@@ -41,6 +41,12 @@ Quick checks: `/api/auction/nft` should return SKELLY #442, and `/api/auction/of
 3. Under **Settings → Environment Variables**, add `OPENSEA_API_KEY` (Production + Preview), then deploy or redeploy.
 
 ## Behaviour
+- **Bid history (right panel, below the room on mobile):** the latest 10 individual ACTIVE offers, newest first, each with name, unit price, ≈ USD and relative time. New entries slide in and flash.
+- **Bid activity:** when a wallet's offer changes, its chair shakes, avatar pulses, amount counts up and a "BID UPDATED" tag pops. New wallets pop in with "NEW BID". Wallets whose offers expire fade out. This only fires when the OpenSea data actually changes.
+- **Top bidder seat:** crown, lime glow, ring and a ★ TOP BIDDER badge. When the leader changes, their tag travels into the seat and the crown drops on.
+- **Auctioneer speech bubble:** reacts to real events (NEW TOP BIDDER! / DO I HEAR MORE? / WE HAVE A NEW BID!), shows COME ON, SKELLIES! when 3 or more offers arrived in the last 15 minutes, and GOING ONCE / TWICE when `AUCTION_NFT.endsAt` is under 2 minutes / 45 seconds away.
+- **USD:** `GET /api/auction/price` (Coinbase spot, CoinGecko fallback, no key, cached 60 s). WETH/ETH are converted at the ETH price, and stablecoins (USDG/USDC/USDT/DAI) at 1:1.
+- **Share:** native share sheet when available, otherwise a "Share on X" / "Copy Link" menu (with a LINK COPIED! toast). The text is built from the live TOP OFFER.
 - **TOP OFFER:** the highest active offer, plus who made it (same bidder as the TOP BIDDER chair).
 - **TOP BIDDER:** the wallet with the highest active offer. The next 3 bidders take the premium row and the next 6 take the standard row (10 seats). Extra bidders show as "+ N OTHER BIDDERS".
 - **Offer filtering:** only offers that target this exact chain, contract and token are shown. Collection and trait offers are dropped.
