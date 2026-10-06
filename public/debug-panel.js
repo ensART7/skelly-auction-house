@@ -11,7 +11,7 @@
 
   var API = '/api/auction';
   var POLL = 15000;
-  var FIELDS = ['NFT', 'Status', 'Offers received', 'Active offers', 'Latest offer', 'Latest offer time', 'Highest offer', 'Highest bidder', 'Statuses'];
+  var FIELDS = ['NFT', 'Status', 'Offers received', 'Active offers', 'Latest offer', 'Latest offer time', 'Highest offer', 'Highest bidder', 'Statuses', 'Offer prices'];
   var cells = {};
 
   function build() {
@@ -23,7 +23,7 @@
       'grid-template-columns:auto minmax(0,1fr);column-gap:12px;box-shadow:0 4px 18px rgba(0,0,0,.25)';
     FIELDS.forEach(function (label) {
       var k = document.createElement('span'); k.textContent = label; k.style.color = '#CCFF00';
-      var v = document.createElement('span'); v.textContent = '—'; v.style.overflowWrap = 'anywhere';
+      var v = document.createElement('span'); v.textContent = '—'; v.style.overflowWrap = 'anywhere'; v.style.whiteSpace = 'pre-line';
       box.appendChild(k); box.appendChild(v); cells[label] = v;
     });
     document.body.appendChild(box);
@@ -58,6 +58,7 @@
       set('Latest offer time', r.latestOffer ? r.latestOffer.createdAt : '—');
       set('Highest offer', money(r.highestOffer));
       set('Highest bidder', r.highestBidder || '—');
+      set('Offer prices', (r.offers || []).slice(0, 10).map(function (o) { var p = o.priceDebug || {}; return o.maker.slice(0, 6) + '…' + o.maker.slice(-3) + ' raw ' + p.rawPrice + '/' + p.decimals + 'd qty ' + p.quantity + ' rem ' + p.remainingQuantity + ' → ' + p.displayPrice + ' ' + o.currency; }).join('\n') || '—');
       var sc = d.statusCounts;
       var ex = d.excludedActive;
       var exText = ex ? Object.keys(ex).filter(function (k) { return ex[k]; }).map(function (k) { return k + ' ' + ex[k]; }).join(', ') : '';

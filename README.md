@@ -55,7 +55,7 @@ Quick checks: `/api/auction/nft` should return SKELLY #442, and `/api/auction/of
 ## Offer processing
 - `lib/offers.js` parses OpenSea's current `GET /api/v2/offers/collection/{slug}/nfts/{identifier}` response (`response.offers`). It is pure and testable.
 - **Active:** `String(status).toUpperCase() === 'ACTIVE'`, and `remaining_quantity > 0` when present. No deprecated fields are used.
-- **Price:** `price.value` / `price.decimals` are read with BigInt. Amounts are compared exactly after scaling to 18 decimals.
+- **Price:** OpenSea's `price.value` is the order *total* (unit × quantity). The bid shown is the **unit price per NFT**: Seaport offer amount ÷ NFT quantity in `protocol_data` when present, otherwise `price.value ÷ quantity/remaining_quantity`, read with BigInt and `price.decimals`. Offers are never multiplied or summed; each bidder seat shows that wallet's highest single offer. `priceDebug` on each offer shows rawPrice / decimals / quantity / remainingQuantity / displayPrice (temporary).
 - **Pagination:** follows `next` up to 200 offers.
 - **Debug summary:** `/api/auction/offers` returns `debug` with `totalReceived`, `active`, `statusCounts`, and the counts of active offers dropped (wrong chain / other NFT / zero remaining / no maker / bad price).
 
