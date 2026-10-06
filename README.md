@@ -41,12 +41,21 @@ Quick checks: `/api/auction/nft` should return SKELLY #442, and `/api/auction/of
 3. Under **Settings → Environment Variables**, add `OPENSEA_API_KEY` (Production + Preview), then deploy or redeploy.
 
 ## Behaviour
+- **Sound:** `public/sound-manager.js` (window.SoundManager) and a speaker control at the top right (bottom right on mobile). Click it to mute or unmute; hover or tap ▾ to open the volume control. Default is ON at 50%, and `skelly.soundEnabled` / `skelly.masterVolume` are saved in localStorage. Nothing plays before the first click, tap or key press.
+  - The page-open bell plays once.
+  - The other sounds play only when the polled data actually changed (previous state compared with new state):
+    - fanfare when the top bidder changes
+    - ding for a new offer
+    - hammer tap when an existing bidder raises their offer
+    - pop + thump for a new wallet
+  - When several events arrive together, only the highest-priority sound plays; a new wallet adds a short pop after it, except under the fanfare.
+  - To use your own sounds, put mp3 files in `public/sounds/` and list them in `manifest.json`. Anything not listed falls back to built-in synthesized sounds.
 - **Bid history (right panel, below the room on mobile):** the latest 10 individual ACTIVE offers, newest first, each with name, unit price, ≈ USD and relative time. New entries slide in and flash.
 - **Bid activity:** when a wallet's offer changes, its chair shakes, avatar pulses, amount counts up and a "BID UPDATED" tag pops. New wallets pop in with "NEW BID". Wallets whose offers expire fade out. This only fires when the OpenSea data actually changes.
 - **Top bidder seat:** crown, lime glow, ring and a ★ TOP BIDDER badge. When the leader changes, their tag travels into the seat and the crown drops on.
 - **Auctioneer speech bubble:** reacts to real events (NEW TOP BIDDER! / DO I HEAR MORE? / WE HAVE A NEW BID!), shows COME ON, SKELLIES! when 3 or more offers arrived in the last 15 minutes, and GOING ONCE / TWICE when `AUCTION_NFT.endsAt` is under 2 minutes / 45 seconds away.
 - **USD:** `GET /api/auction/price` (Coinbase spot, CoinGecko fallback, no key, cached 60 s). WETH/ETH are converted at the ETH price, and stablecoins (USDG/USDC/USDT/DAI) at 1:1.
-- **Share:** SHARE AUCTION ↗ opens an X post: "Bringing NFT auctions back. 🔨💀 / Welcome to the @skelly_hood Auction House." plus the auction link.
+- **Share:** SHARE AUCTION ↗ opens an X post: "Bringing NFT auctions back. 🔨💀 / Welcome to the @skelly_hood Auction House. www.skellynft.com/auctions".
 - **TOP OFFER:** the highest active offer, plus who made it (same bidder as the TOP BIDDER chair).
 - **TOP BIDDER:** the wallet with the highest active offer. The next 3 bidders take the premium row and the next 6 take the standard row (10 seats). Extra bidders show as "+ N OTHER BIDDERS".
 - **Offer filtering:** only offers that target this exact chain, contract and token are shown. Collection and trait offers are dropped.
