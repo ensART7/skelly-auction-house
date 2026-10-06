@@ -50,8 +50,8 @@ a:hover{color:inherit}
       <svg style="position:absolute;left:22%;top:250px;width:10px;color:#0B1B33;opacity:.9;pointer-events:none" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="currentColor"></circle></svg>
       <svg style="position:absolute;right:22%;top:40px;width:9px;opacity:.9;pointer-events:none" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="#0B1B33"></circle></svg>
 
-      <section aria-label="Last offer" style="position:absolute;left:var(--signL,calc(50% - 350px));top:14px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center">
-        <div style="background:#FFFFFF;color:#0B1B33;border:4px solid #0B1B33;border-radius:18px;box-shadow:6px 6px 0 #0B1B33;font-weight:800;font-size:40px;line-height:1;padding:10px 26px 4px;letter-spacing:.01em;transform:rotate(-1.5deg);white-space:nowrap">LAST OFFER</div>
+      <section aria-label="Top offer" style="position:absolute;left:var(--signL,calc(50% - 350px));top:14px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center">
+        <div style="background:#FFFFFF;color:#0B1B33;border:4px solid #0B1B33;border-radius:18px;box-shadow:6px 6px 0 #0B1B33;font-weight:800;font-size:40px;line-height:1;padding:10px 26px 4px;letter-spacing:.01em;transform:rotate(-1.5deg);white-space:nowrap">TOP OFFER</div>
         <div style="display:flex;align-items:baseline;gap:10px;margin-top:4px;line-height:1;white-space:nowrap">
           <span ref="{{ offerRef }}" style="display:inline-block;font-weight:800;font-size:104px;letter-spacing:-.01em;color:#FFFFFF;text-shadow:5px 5px 0 #0B1B33;-webkit-text-stroke:3px #0B1B33;paint-order:stroke fill;font-variant-numeric:tabular-nums">{{ offerAmount }}</span>
           <span style="display:flex;flex-direction:column;align-items:flex-start;gap:6px"><span style="font-weight:800;font-size:42px;-webkit-text-fill-color:#FFFFFF;-webkit-text-stroke:2px #0B1B33;paint-order:stroke fill;text-shadow:3px 3px 0 #0B1B33">{{ currency }}</span><sc-if value="{{ hasLastBy }}" hint-placeholder-val="{{ false }}"><span title="{{ lastByTitle }}" style="display:block;background:#FFFFFF;color:#0B1B33;border:2.5px solid #0B1B33;border-radius:999px;box-shadow:2px 2px 0 #0B1B33;font-weight:800;font-size:15px;letter-spacing:.06em;padding:3px 10px 0;white-space:nowrap;transform:rotate(-3deg);max-width:220px;overflow:hidden;text-overflow:ellipsis">BY {{ lastBy }}</span></sc-if></span>
@@ -313,7 +313,7 @@ class Component extends DCLogic {
       ], { duration: 950, easing: 'cubic-bezier(.3,1.25,.5,1)' });
     });
     const offers = this.state.offers, last = this.lastOffer(offers), top = this.bidders(offers)[0] || null;
-    const lastId = last ? last.id : null;
+    const lastId = top ? `${top.address}:${top.offerAmount}` : null;
     if (lastId && this.prevLastId && lastId !== this.prevLastId) {
       this.anim(this.offerRef.current, [
         { transform: 'scale(1)' }, { transform: 'scale(1.2)', offset: .3 }, { transform: 'scale(.95)', offset: .6 }, { transform: 'scale(1.03)', offset: .82 }, { transform: 'scale(1)' }
@@ -494,8 +494,8 @@ class Component extends DCLogic {
       panelRef: this.panelRef, sceneRef: this.sceneRef, offerRef: this.offerRef, gavelRef: this.gavelRef,
       bangRef: this.bangRef, artRef: this.artRef, zipRef: this.zipRef, vipChairRef: this.vipChairRef, raysRef: this.raysRef,
       soldWordRef: this.soldWordRef, soldLotRef: this.soldLotRef, soldPriceRef: this.soldPriceRef, congratsRef: this.congratsRef,
-      offerAmount: last ? this.fmt(last.amount) : '—', currency: last ? last.currency : '',
-      hasLastBy: !!last, lastBy: last ? this.nameFor(last.maker) : '', lastByTitle: last ? last.maker : '',
+      offerAmount: top ? this.fmt(top.offerAmount) : '—', currency: top ? top.currency : '',
+      hasLastBy: !!top, lastBy: top ? this.nameFor(top.address) : '', lastByTitle: top ? top.address : '',
       nftName: this.nftTitle(nft),
       nftBg: nft && nft.imageUrl ? `url("${nft.imageUrl}")` : 'none',
       openseaUrl: nft && nft.openseaUrl ? nft.openseaUrl : undefined,
