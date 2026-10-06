@@ -11,7 +11,6 @@
 <x-dc>
 <helmet>
 <title>Skelly Auction House</title>
-<script src="./sound-manager.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;display=swap">
@@ -234,28 +233,6 @@ a:hover{color:inherit}
     </div>
   </main>
 
-  <div ref="{{ sndRef }}" onMouseEnter="{{ sndHoverOn }}" onMouseLeave="{{ sndHoverOff }}" style="position:fixed;right:clamp(12px,1.6vw,26px);top:{{ sndTop }};bottom:{{ sndBottom }};z-index:45;display:flex;flex-direction:column;align-items:flex-end">
-    <div style="display:flex;align-items:center;gap:2px;background:#FFFFFF;border:3px solid #0B1B33;border-radius:999px;box-shadow:3px 4px 0 #0B1B33;padding:3px">
-      <button type="button" onClick="{{ sndToggle }}" aria-pressed="{{ sndOn }}" aria-label="{{ sndAria }}" title="{{ sndLabel }}" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:{{ sndBtnBg }};border:2.5px solid #0B1B33;border-radius:50%;cursor:pointer;padding:0;color:#0B1B33">
-        <svg viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px;display:block"><path d="M3 9.5 h4 l5-4.5 v14 l-5-4.5 h-4 z" fill="#0B1B33" stroke="#0B1B33" stroke-width="1.6" stroke-linejoin="round"></path>
-          <sc-if value="{{ sndOn }}" hint-placeholder-val="{{ true }}"><path d="M15.5 9 q2 3 0 6 M18 6.5 q4 5.5 0 11" fill="none" stroke="#0B1B33" stroke-width="2.2" stroke-linecap="round"></path></sc-if>
-          <sc-if value="{{ sndOff }}" hint-placeholder-val="{{ false }}"><path d="M15.5 9 l5 6 M20.5 9 l-5 6" fill="none" stroke="#0B1B33" stroke-width="2.4" stroke-linecap="round"></path></sc-if>
-        </svg>
-      </button>
-      <button type="button" onClick="{{ sndPanelToggle }}" aria-expanded="{{ sndPanel }}" aria-label="Volume" style="display:flex;align-items:center;justify-content:center;width:26px;height:40px;background:transparent;border:0;cursor:pointer;padding:0;color:#0B1B33;font:800 14px/1 inherit">▾</button>
-    </div>
-    <sc-if value="{{ sndPanel }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;right:0;top:{{ sndPTop }};bottom:{{ sndPBottom }};padding:8px 0">
-        <div style="display:flex;flex-direction:column;gap:6px;background:#FFFFFF;color:#0B1B33;border:3px solid #0B1B33;border-radius:16px;box-shadow:4px 4px 0 #0B1B33;padding:10px 12px 8px;min-width:190px">
-          <span style="font-weight:800;font-size:13px;letter-spacing:.1em;white-space:nowrap">{{ sndLabel }}</span>
-          <div style="display:flex;align-items:center;gap:10px">
-            <input type="range" min="0" max="100" step="5" value="{{ sndVolPct }}" onChange="{{ sndVol }}" aria-label="Master volume" style="flex:1 1 auto;min-width:0;accent-color:#1668BE;cursor:pointer">
-            <span style="font-weight:800;font-size:13px;min-width:38px;text-align:right;font-variant-numeric:tabular-nums">{{ sndVolText }}</span>
-          </div>
-        </div>
-      </div>
-    </sc-if>
-  </div>
   <sc-if value="{{ showAside }}" hint-placeholder-val="{{ false }}">
   <aside aria-label="Bid history" style="flex:0 0 auto;width:{{ asideW }};position:relative;display:flex;flex-direction:column;min-height:0;background:#1668BE;border:4px solid #0B1B33;border-radius:26px;box-shadow:6px 6px 0 #0B1B33;padding:30px 12px 12px;margin:14px 6px 8px 0">
     <div style="position:absolute;top:-17px;left:22px;transform:rotate(-2deg);background:#FFFFFF;color:#0B1B33;border:3px solid #0B1B33;border-radius:999px;box-shadow:3px 3px 0 #0B1B33;padding:5px 16px 1px;font-weight:800;font-size:15px;letter-spacing:.12em;white-space:nowrap">BID HISTORY</div>
@@ -295,12 +272,12 @@ class Component extends DCLogic {
     '--vipW':'92px','--vipAv':'42px','--vipNm':'18px','--vipAmt':'20px','--vipSlot':'124px','--vipSeat':'170px','--premW':'56px','--premAv':'30px','--premNm':'14px','--premAmt':'15px','--premSlot':'80px','--premSeat':'110px','--stdW':'34px','--stdAv':'22px','--stdNm':'11px','--stdAmt':'12px','--stdSlot':'64px','--stdSeat':'78px' };
   static PORT = { '--signL':'50%','--podL':'110px','--podT':'190px','--podW':'210px','--ewL':'400px','--ewT':'206px','--ewDir':'column','--ewGap':'8px','--easelW':'170px','--lnFs':'30px','--lsFs':'13px','--btnFs':'16px','--btnPad':'8px 18px 4px','--liAlign':'center','--liText':'center','--btnSelf':'center','--floorL':'20px','--floorT':'560px','--floorW':'720px','--floorH':'750px','--r4pad':'0px','--bubL':'14px','--bubT':'232px','--bubW':'150px','--bubFs':'17px',
     '--vipW':'128px','--vipAv':'54px','--vipNm':'22px','--vipAmt':'24px','--vipSlot':'150px','--vipSeat':'200px','--premW':'84px','--premAv':'40px','--premNm':'16px','--premAmt':'18px','--premSlot':'100px','--premSeat':'150px','--stdW':'50px','--stdAv':'28px','--stdNm':'11px','--stdAmt':'12px','--stdSlot':'74px','--stdSeat':'68px' };
-  state = { sndOn: true, sndVol: 0.5, sndPanel: false, ethUsd: null, now: Date.now(), event: null, shareOpen: false, copied: false, vw: 0, vh: 0, artZoom: false, dbg: null, phase: 'connecting', nft: null, offers: [], accounts: {}, endsAt: 0, status: 'live', sold: false, artFailed: false, stale: false, imgTick: 0 };
+  state = { ethUsd: null, now: Date.now(), event: null, shareOpen: false, copied: false, vw: 0, vh: 0, artZoom: false, dbg: null, phase: 'connecting', nft: null, offers: [], accounts: {}, endsAt: 0, status: 'live', sold: false, artFailed: false, stale: false, imgTick: 0 };
   panelRef = React.createRef(); sceneRef = React.createRef(); offerRef = React.createRef();
   gavelRef = React.createRef(); bangRef = React.createRef(); artRef = React.createRef(); zipRef = React.createRef();
   vipChairRef = React.createRef(); raysRef = React.createRef(); soldWordRef = React.createRef(); soldLotRef = React.createRef();
   soldPriceRef = React.createRef(); congratsRef = React.createRef();
-  sndRef = React.createRef(); bubbleRef = React.createRef(); histRef = React.createRef(); vipGlowRef = React.createRef(); badgeRef = React.createRef(); shareRef = React.createRef(); toastRef = React.createRef();
+  bubbleRef = React.createRef(); histRef = React.createRef(); vipGlowRef = React.createRef(); badgeRef = React.createRef(); shareRef = React.createRef(); toastRef = React.createRef();
   hadData = false; prevHist = null;
   SCALE = 1; ending = false; prevTop = null; prevLastId = null; prevNftKey = ''; timers = [];
   accountCache = new Map(); imgOk = new Map(); offerSig = ''; pollCount = 0; serverPoll = null; runId = 0;
@@ -544,7 +521,7 @@ class Component extends DCLogic {
       }
     });
     this.prevHist = histIds;
-    if (first) { if (window.SoundManager) window.SoundManager.playAuctionBell(); return; }
+    if (first) return;
 
     const now = this.bidders(this.state.offers), nowMap = new Map(now.map(b => [b.address, b]));
     const prevTop = prevB.size ? prevB.keys().next().value : null, prevTopAmt = prevTop ? prevB.get(prevTop).offerAmount : 0;
@@ -564,14 +541,6 @@ class Component extends DCLogic {
       if (!p || p.offerAmount !== b.offerAmount) this.anim(el.querySelector('[data-av]'), [{ transform: 'scale(1)' }, { transform: 'scale(1.25)', boxShadow: '0 0 0 5px #CCFF00', offset: .35 }, { transform: 'scale(.95)', offset: .7 }, { transform: 'scale(1)' }], { duration: 750, easing: 'ease-out' });
     });
     const newOffer = this.state.offers.some(o => !prevIds.has(o.id));
-    /* SOUND: compare previous vs new state; only real changes make sound */
-    if (window.SoundManager) {
-      const incW = new Set(); let newBidder = false;
-      nowMap.forEach((b, w) => { const p = prevB.get(w); if (!p) newBidder = true; else if (b.offerAmount > p.offerAmount) incW.add(w); });
-      const newBid = this.state.offers.some(o => !prevIds.has(o.id) && !incW.has(o.maker));
-      const topChange = !!(top && prevTop && top.address !== prevTop);
-      window.SoundManager.playEvents({ topChange, newBid, increase: incW.size > 0, newBidder });
-    }
     let type = null;
     if (top && prevTop && top.address !== prevTop) type = 'top';
     else if (top && prevTop && top.offerAmount > prevTopAmt) type = 'more';
@@ -726,12 +695,7 @@ class Component extends DCLogic {
     this.loadPrice(); this.priceTimer = setInterval(this.loadPrice, 60000);
     this.onResize = () => this.setState({ vw: window.innerWidth, vh: window.innerHeight });
     window.addEventListener('resize', this.onResize);
-    this.onDocDown = e => {
-      if (this.state.shareOpen && this.shareRef.current && !this.shareRef.current.contains(e.target)) this.setState({ shareOpen: false });
-      if (this.state.sndPanel && this.sndRef.current && !this.sndRef.current.contains(e.target)) this.setState({ sndPanel: false });
-    };
-    const hookSnd = () => { const SM = window.SoundManager; if (!SM || this.unsubSnd) return; const st = SM.get(); this.setState({ sndOn: st.enabled, sndVol: st.volume }); this.unsubSnd = SM.subscribe(x => this.setState({ sndOn: x.enabled, sndVol: x.volume })); };
-    hookSnd(); this.onSndReady = hookSnd; window.addEventListener('skelly-sound-ready', hookSnd);
+    this.onDocDown = e => { if (this.state.shareOpen && this.shareRef.current && !this.shareRef.current.contains(e.target)) this.setState({ shareOpen: false }); };
     document.addEventListener('pointerdown', this.onDocDown);
     this.anim(this.vipGlowRef.current, [{ transform: 'translateX(-50%) scale(.94)' }, { transform: 'translateX(-50%) scale(1.04)' }], { duration: 1800, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' });
     this.anim(this.raysRef.current, [{ transform: 'translate(-50%,-50%) rotate(0deg)' }, { transform: 'translate(-50%,-50%) rotate(360deg)' }], { duration: 40000, iterations: Infinity });
@@ -742,7 +706,7 @@ class Component extends DCLogic {
     (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => { this.fit(); this.restart(); });
   }
   componentWillUnmount() {
-    this.runId++; this.stopFeed(); clearInterval(this.clock); clearInterval(this.fitTimer); clearInterval(this.nowTimer); clearInterval(this.priceTimer); clearTimeout(this.copyTimer); window.removeEventListener('resize', this.onResize); window.removeEventListener('skelly-sound-ready', this.onSndReady); if (this.unsubSnd) this.unsubSnd(); document.removeEventListener('pointerdown', this.onDocDown); this.timers.forEach(clearTimeout); if (this.ro) this.ro.disconnect();
+    this.runId++; this.stopFeed(); clearInterval(this.clock); clearInterval(this.fitTimer); clearInterval(this.nowTimer); clearInterval(this.priceTimer); clearTimeout(this.copyTimer); window.removeEventListener('resize', this.onResize); document.removeEventListener('pointerdown', this.onDocDown); this.timers.forEach(clearTimeout); if (this.ro) this.ro.disconnect();
   }
 
   renderVals() {
@@ -779,16 +743,6 @@ class Component extends DCLogic {
       zoomIn: () => { if (nft && nft.imageUrl && !s.artFailed) this.setState({ artZoom: true }); }, zoomOut: () => this.setState({ artZoom: false }),
       zoomOpacity: s.artZoom ? 1 : 0, zoomTransform: s.artZoom ? 'scale(1) rotate(-1.5deg)' : 'scale(.4) rotate(-6deg)',
       vip: item(bidders[0]), prem: [item(bidders[2]), item(bidders[1]), item(bidders[3])], r3: row(4),
-      sndRef: this.sndRef, sndOn: !!s.sndOn, sndOff: !s.sndOn, sndLabel: s.sndOn ? 'SOUND ON' : 'SOUND OFF',
-      sndAria: s.sndOn ? 'Mute auction sounds' : 'Unmute auction sounds', sndBtnBg: s.sndOn ? '#CCFF00' : '#FFFFFF',
-      sndPanel: !!s.sndPanel, sndVolPct: Math.round((s.sndVol ?? 0.5) * 100), sndVolText: Math.round((s.sndVol ?? 0.5) * 100) + '%',
-      sndTop: narrow ? 'auto' : 'clamp(12px,1.8vh,20px)', sndBottom: narrow ? 'calc(12px + env(safe-area-inset-bottom,0px))' : 'auto',
-      sndPTop: narrow ? 'auto' : '100%', sndPBottom: narrow ? '100%' : 'auto',
-      sndToggle: () => { const SM = window.SoundManager; if (SM) SM.toggle(); },
-      sndVol: e => { const SM = window.SoundManager; if (SM) SM.setVolume(Number(e.target.value) / 100); },
-      sndPanelToggle: () => this.setState(x => ({ sndPanel: !x.sndPanel })),
-      sndHoverOn: () => { if (!narrow && !this.state.sndPanel) this.setState({ sndPanel: true }); },
-      sndHoverOff: () => { if (!narrow && this.state.sndPanel) this.setState({ sndPanel: false }); },
       showAside, showScenePanel: !showAside, history: hist, histEmpty: !hist.length, histEmptyText: statusText || 'NO BIDS YET', histRef: this.histRef,
       speech: this.speech(), bubbleRef: this.bubbleRef, vipGlowRef: this.vipGlowRef, badgeRef: this.badgeRef,
       share: this.share, closeShare: this.closeShare, copyLink: this.copyLink, shareOpen: !!s.shareOpen, copied: !!s.copied,

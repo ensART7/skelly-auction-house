@@ -41,15 +41,6 @@ Quick checks: `/api/auction/nft` should return SKELLY #442, and `/api/auction/of
 3. Under **Settings → Environment Variables**, add `OPENSEA_API_KEY` (Production + Preview), then deploy or redeploy.
 
 ## Behaviour
-- **Sound:** `public/sound-manager.js` (window.SoundManager) and a speaker control at the top right (bottom right on mobile). Click it to mute or unmute; hover or tap ▾ to open the volume control. Default is ON at 50%, and `skelly.soundEnabled` / `skelly.masterVolume` are saved in localStorage. Nothing plays before the first click, tap or key press.
-  - The page-open bell plays once.
-  - The other sounds play only when the polled data actually changed (previous state compared with new state):
-    - fanfare when the top bidder changes
-    - ding for a new offer
-    - hammer tap when an existing bidder raises their offer
-    - pop + thump for a new wallet
-  - When several events arrive together, only the highest-priority sound plays; a new wallet adds a short pop after it, except under the fanfare.
-  - To use your own sounds, put mp3 files in `public/sounds/` and list them in `manifest.json`. Anything not listed falls back to built-in synthesized sounds.
 - **Bid history (right panel, below the room on mobile):** the latest 10 individual ACTIVE offers, newest first, each with name, unit price, ≈ USD and relative time. New entries slide in and flash.
 - **Bid activity:** when a wallet's offer changes, its chair shakes, avatar pulses, amount counts up and a "BID UPDATED" tag pops. New wallets pop in with "NEW BID". Wallets whose offers expire fade out. This only fires when the OpenSea data actually changes.
 - **Top bidder seat:** crown, lime glow, ring and a ★ TOP BIDDER badge. When the leader changes, their tag travels into the seat and the crown drops on.
